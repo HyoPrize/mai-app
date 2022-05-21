@@ -8,7 +8,6 @@ const MenuItemDiv = styled("div")`
     height: 50px;
     margin: 2.5% 0 2.5% 2.5%;
 
-    background-color: #ffb17a80;
     border-radius: 10px;
 
     span {
@@ -23,7 +22,7 @@ const MenuItemDiv = styled("div")`
     }
 
     :hover {
-        background-color: #ffb17a;
+        box-shadow: 0px 1px 5px rgba(128, 128, 128);
     }
 `;
 
@@ -41,7 +40,7 @@ function MenuItem(props) {
 
     return (
         <li>
-            <MenuItemDiv onClick={onclickMenuItem}>
+            <MenuItemDiv style={{ cursor: "pointer" }} className="clickable-text-hover" onClick={onclickMenuItem}>
                 <span className="menu-item-icon"></span>
                 <span className="menu-item-name">{props.name}</span>
             </MenuItemDiv>
