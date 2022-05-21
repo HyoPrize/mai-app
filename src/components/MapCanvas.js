@@ -2,12 +2,14 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const { kakao } = window;
-
 const MapDiv = styled("div")`
+    position: relative;
+    overflow: hidden;
     width: 100vw;
     height: 100vh;
 `;
+
+const { kakao } = window;
 
 function MapCanvas() {
     const [map, setMap] = useState(null);
