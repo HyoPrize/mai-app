@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+
   body {
     font-family: "Roboto", "Noto", sans-serif;
     font-weight: bold;
@@ -18,6 +19,12 @@ const GlobalStyle = createGlobalStyle`
         color: #ffb17a;
     }
     cursor: pointer;
+  }
+
+  .complete-circle-info {
+    list-style: none;
+        padding-left: 0px;
+        margin-top: 0px;
   }
 `;
 

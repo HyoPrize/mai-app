@@ -9,6 +9,7 @@ const ButtonDiv = styled("div")`
             case 0:
                 return "0px";
             case 1:
+            case 3:
                 return "252px";
             case 2:
                 return "754px";
@@ -86,6 +87,10 @@ function MenuToggleButton({ ...props }) {
             props.setOpening(false);
             props.setClosing(false);
             props.setMenuLevel((current) => current - 1);
+        } else if (props.menuLevel === 3) {
+            props.setMenuLevel(0);
+            props.setOpening(false);
+            props.setClosing(true);
         } else {
             console.log("MenuLevel Error");
         }

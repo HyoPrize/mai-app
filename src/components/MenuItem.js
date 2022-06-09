@@ -29,12 +29,17 @@ const MenuItemDiv = styled("div")`
 function MenuItem(props) {
     const onclickMenuItem = () => {
         if (props.menuLevel === 1) {
-            // Open and Load Page
+            // Open MenuPage & Load MenuPage
             props.setOpening(false);
             props.setClosing(false);
-            props.setMenuLevel((current) => current + 1);
+            props.setMenuLevel(2);
         } else if (props.menuLevel === 2) {
-            // Load Page
+            // Load MenuPage
+        } else if (props.menuLevel === 3) {
+            // Close UserPage & OpenMenuPage & Load MenuPage
+            props.setOpening(false);
+            props.setClosing(false);
+            props.setMenuLevel(2);
         }
     };
 

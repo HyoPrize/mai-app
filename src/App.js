@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import GlobalStyle from "./styles/GlobalStyle";
-import Map from "./routes/Map";
+import MapPage from "./routes/Map";
 
 function App() {
     return (
@@ -10,7 +10,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={"MAI Main Page"}></Route>
-                    <Route path="/map" element={<Map />}></Route>
+                    <Route path="/map" element={<MapPage />}></Route>
                 </Routes>
             </Router>
         </>

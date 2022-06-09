@@ -14,15 +14,7 @@ const MenuPageDiv = styled("div")`
 `;
 
 function MenuPage(props) {
-    return (
-        <div>
-            {props.menuLevel === 2 ? (
-                <MenuPageDiv {...props}>
-                    <ul>{props.children}</ul>
-                </MenuPageDiv>
-            ) : null}
-        </div>
-    );
+    return <div>{props.menuLevel === 2 ? <MenuPageDiv></MenuPageDiv> : null}</div>;
 }
 
 export default MenuPage;

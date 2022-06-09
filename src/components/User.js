@@ -1,10 +1,21 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Icon } from "@blueprintjs/core";
 
 const UserIconBtn = styled("button")`
     position: absolute;
-    right: 40px;
+    right: ${function (props) {
+        switch (Number(props.menuLevel)) {
+            case 0:
+            case 1:
+            case 2:
+                return "40px";
+            case 3:
+                return "540px";
+            default:
+                return "40px";
+        }
+    }};
+
     top: 30px;
     width: 50px;
     height: 50px;
@@ -17,7 +28,18 @@ const UserIconBtn = styled("button")`
 
 const UserMenuDiv = styled("div")`
     position: absolute;
-    right: 40px;
+    right: ${function (props) {
+        switch (Number(props.menuLevel)) {
+            case 0:
+            case 1:
+            case 2:
+                return "40px";
+            case 3:
+                return "540px";
+            default:
+                return "40px";
+        }
+    }};
     top: 30px;
     width: 50px;
     height: 50px;
@@ -35,12 +57,10 @@ const UserMenuDiv = styled("div")`
 
     animation: ${function (props) {
         if (props.opening) {
-            console.log("asdf");
             return "open-event 0.2s forwards ease-out";
         } else if (props.closing) {
             return "close-event 0.2s forwards ease-out";
         } else {
-            console.log("none");
             return "none";
         }
     }};
@@ -77,42 +97,85 @@ const UserMenuItemDiv = styled("div")`
     text-align: center;
     align-items: center;
 `;
+
+const UserPageDiv = styled("div")`
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 500px;
+    height: 100%;
+    z-index: 1;
+    border-left: 2px solid grey;
+    border-right: 2px solid grey;
+
+    background-color: #fffded95;
+`;
+
 function UserIcon(props) {
-    return <UserIconBtn onClick={props.onClick}></UserIconBtn>;
+    const onClickUserIcon = () => {
+        if (props.opening) {
+            props.setOpening(false);
+            props.setClosing(true);
+        } else if (props.closing) {
+            props.setOpening(true);
+            props.setClosing(false);
+        } else {
+            props.setOpening(true);
+            props.setClosing(false);
+        }
+        //setIsOpen((current) => !current);
+    };
+
+    return <UserIconBtn onClick={onClickUserIcon} menuLevel={props.menuLevel}></UserIconBtn>;
 }
 
 function UserMenu(props) {
+    const onClickLogin = () => {
+        props.setMenuLevel(3);
+    };
+
+    const onClickSignUp = () => {
+        props.setMenuLevel(3);
+    };
+
     return (
         <UserMenuDiv {...props}>
             <UserMenuFlexBox>
-                <UserMenuItemDiv className="clickable-text-hover">로그인</UserMenuItemDiv>
-                <UserMenuItemDiv className="clickable-text-hover">회원가입</UserMenuItemDiv>
+                <UserMenuItemDiv onClick={onClickLogin} className="clickable-text-hover">
+                    로그인
+                </UserMenuItemDiv>
+                <UserMenuItemDiv onClick={onClickSignUp} className="clickable-text-hover">
+                    회원가입
+                </UserMenuItemDiv>
             </UserMenuFlexBox>
         </UserMenuDiv>
     );
 }
 
-function User() {
+function UserPage(props) {
+    return <div>{props.menuLevel === 3 ? <UserPageDiv></UserPageDiv> : null}</div>;
+}
+
+function User(props) {
     const [opening, setOpening] = useState(false);
     const [closing, setClosing] = useState(false);
-    const onClickUserIcon = () => {
-        if (opening) {
-            setOpening(false);
-            setClosing(true);
-        } else if (closing) {
-            setOpening(true);
-            setClosing(false);
-        } else {
-            setOpening(true);
-            setClosing(false);
-        }
-        //setIsOpen((current) => !current);
-    };
 
     return (
         <div>
-            <UserIcon onClick={onClickUserIcon} opening={opening} closing={closing}></UserIcon>
-            <UserMenu opening={opening} closing={closing}></UserMenu>
+            <UserIcon
+                menuLevel={props.menuLevel}
+                opening={opening}
+                closing={closing}
+                setOpening={setOpening}
+                setClosing={setClosing}
+            ></UserIcon>
+            <UserMenu
+                menuLevel={props.menuLevel}
+                setMenuLevel={props.setMenuLevel}
+                opening={opening}
+                closing={closing}
+            ></UserMenu>
+            <UserPage menuLevel={props.menuLevel}></UserPage>
         </div>
     );
 }
