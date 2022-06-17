@@ -23,6 +23,8 @@ function MapCanvas(props) {
         lng: 0,
     });
 
+    const [isRangeOver, setIsRangeOver] = useState(false);
+
     const handleClick = (_map, mouseEvent) => {
         if (props.isCircleMode) {
             if (!isDrawing) {
@@ -50,6 +52,8 @@ function MapCanvas(props) {
                     ...prev,
                     radius: drawingLine.getLength(),
                 }));
+
+                setIsRangeOver(Math.floor(drawingLine.getLength()) > 100000);
             }
         }
     };
@@ -57,9 +61,11 @@ function MapCanvas(props) {
     const handleRightClick = (_map, _mouseEvent) => {
         if (props.isCircleMode) {
             if (isDrawing) {
-                setIsDrawing(false);
-                setCircles((prev) => [...prev, { ...drawingCircleData, mousePosition }]);
-                props.setIsCircleMode(false);
+                if (!isRangeOver) {
+                    setIsDrawing(false);
+                    setCircles((prev) => [...prev, { ...drawingCircleData, mousePosition }]);
+                    props.setIsCircleMode(false);
+                }
             }
         }
     };
@@ -98,7 +104,8 @@ function MapCanvas(props) {
                         />
                         <CustomOverlayMap position={mousePosition} xAnchor={0} yAnchor={0} zIndex={1}>
                             <div className="info">
-                                반경 <span className="number">{Math.floor(drawingCircleData.radius)}</span>m
+                                반경 <span className="number">{Math.floor(drawingCircleData.radius)}</span> m
+                                {isRangeOver ? <div style={{ color: "red" }}>범위가 너무 큽니다!</div> : null}
                             </div>
                         </CustomOverlayMap>
                     </>
