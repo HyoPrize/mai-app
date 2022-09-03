@@ -12,20 +12,14 @@ const ParentDiv = styled("div")`
 `;
 
 function MapPage() {
-    const [menuLevel, setMenuLevel] = useState(0);
     const [isCircleMode, setIsCircleMode] = useState(false);
 
-    console.log(menuLevel);
     return (
         <ParentDiv>
             <MapCanvas isCircleMode={isCircleMode} setIsCircleMode={setIsCircleMode} />
-            <Menu menuLevel={menuLevel} setMenuLevel={setMenuLevel}></Menu>
-            <User menuLevel={menuLevel} setMenuLevel={setMenuLevel}></User>
-            <ControlGroup
-                menuLevel={menuLevel}
-                isCircleMode={isCircleMode}
-                setIsCircleMode={setIsCircleMode}
-            ></ControlGroup>
+            <Menu></Menu>
+            <User></User>
+            <ControlGroup isCircleMode={isCircleMode} setIsCircleMode={setIsCircleMode}></ControlGroup>
         </ParentDiv>
     );
 }

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import { useSelector, useDispatch } from "react-redux";
+import { setLevel } from "redux/actions/menuLevelAction";
+
 const UserIconBtn = styled("button")`
     position: absolute;
-    right: ${function (props) {
+    /* right: ${function (props) {
         switch (Number(props.menuLevel)) {
             case 0:
             case 1:
@@ -14,7 +17,7 @@ const UserIconBtn = styled("button")`
             default:
                 return "40px";
         }
-    }};
+    }}; */
 
     top: 30px;
     width: 50px;
@@ -24,22 +27,13 @@ const UserIconBtn = styled("button")`
     border-radius: 50%;
     cursor: pointer;
     z-index: 2;
+
+    transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 `;
 
 const UserMenuDiv = styled("div")`
     position: absolute;
-    right: ${function (props) {
-        switch (Number(props.menuLevel)) {
-            case 0:
-            case 1:
-            case 2:
-                return "40px";
-            case 3:
-                return "540px";
-            default:
-                return "40px";
-        }
-    }};
     top: 30px;
     width: 50px;
     height: 50px;
@@ -55,7 +49,9 @@ const UserMenuDiv = styled("div")`
     }};
     z-index: 1;
 
-    animation: ${function (props) {
+    transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    /* animation: ${function (props) {
         if (props.opening) {
             return "open-event 0.2s forwards ease-out";
         } else if (props.closing) {
@@ -79,7 +75,7 @@ const UserMenuDiv = styled("div")`
         100% {
             width: 50px;
         }
-    }
+    } */
 `;
 
 const UserMenuFlexBox = styled("div")`
@@ -112,6 +108,22 @@ const UserPageDiv = styled("div")`
 `;
 
 function UserIcon(props) {
+    const dispatch = useDispatch();
+    const menuLevel = useSelector((state) => state.menuLevel);
+
+    const getPixelFromMenuLevel = () => {
+        switch (menuLevel) {
+            case 0:
+            case 1:
+            case 2:
+                return "40px";
+            case 3:
+                return "540px";
+            default:
+                return "40px";
+        }
+    };
+
     const onClickUserIcon = () => {
         if (props.opening) {
             props.setOpening(false);
@@ -126,20 +138,36 @@ function UserIcon(props) {
         //setIsOpen((current) => !current);
     };
 
-    return <UserIconBtn onClick={onClickUserIcon} menuLevel={props.menuLevel}></UserIconBtn>;
+    return <UserIconBtn onClick={onClickUserIcon} style={{ right: getPixelFromMenuLevel() }}></UserIconBtn>;
 }
 
 function UserMenu(props) {
+    const dispatch = useDispatch();
+    const menuLevel = useSelector((state) => state.menuLevel);
+
     const onClickLogin = () => {
-        props.setMenuLevel(3);
+        dispatch(setLevel(3));
     };
 
     const onClickSignUp = () => {
-        props.setMenuLevel(3);
+        dispatch(setLevel(3));
+    };
+
+    const getPixelFromMenuLevel = () => {
+        switch (menuLevel) {
+            case 0:
+            case 1:
+            case 2:
+                return "40px";
+            case 3:
+                return "540px";
+            default:
+                return "40px";
+        }
     };
 
     return (
-        <UserMenuDiv {...props}>
+        <UserMenuDiv style={{ right: getPixelFromMenuLevel() }} {...props}>
             <UserMenuFlexBox>
                 <UserMenuItemDiv onClick={onClickLogin} className="clickable-text-hover">
                     로그인
@@ -157,25 +185,11 @@ function UserPage(props) {
 }
 
 function User(props) {
-    const [opening, setOpening] = useState(false);
-    const [closing, setClosing] = useState(false);
-
     return (
         <div>
-            <UserIcon
-                menuLevel={props.menuLevel}
-                opening={opening}
-                closing={closing}
-                setOpening={setOpening}
-                setClosing={setClosing}
-            ></UserIcon>
-            <UserMenu
-                menuLevel={props.menuLevel}
-                setMenuLevel={props.setMenuLevel}
-                opening={opening}
-                closing={closing}
-            ></UserMenu>
-            <UserPage menuLevel={props.menuLevel}></UserPage>
+            <UserIcon></UserIcon>
+            <UserMenu></UserMenu>
+            <UserPage></UserPage>
         </div>
     );
 }

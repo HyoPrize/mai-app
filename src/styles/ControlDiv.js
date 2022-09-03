@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const ControlDiv = styled("div")`
     position: absolute;
-    right: ${function (props) {
+    /* right: ${function (props) {
         switch (Number(props.menuLevel)) {
             case 0:
             case 1:
@@ -13,8 +13,7 @@ const ControlDiv = styled("div")`
             default:
                 return "40px";
         }
-    }};
-    top: ${(props) => props.top};
+    }}; */
     width: 50px;
     height: 50px;
     z-index: 2;

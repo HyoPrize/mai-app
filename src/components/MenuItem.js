@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+import { useSelector, useDispatch } from "react-redux";
+import { up, down } from "redux/actions/menuLevelAction";
+
 const MenuItemDiv = styled("div")`
     display: flex;
     justify-content: left;
@@ -27,19 +30,18 @@ const MenuItemDiv = styled("div")`
 `;
 
 function MenuItem(props) {
+    const dispatch = useDispatch();
+    const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
+
     const onclickMenuItem = () => {
-        if (props.menuLevel === 1) {
+        if (menuLevel === 1) {
             // Open MenuPage & Load MenuPage
-            props.setOpening(false);
-            props.setClosing(false);
-            props.setMenuLevel(2);
-        } else if (props.menuLevel === 2) {
+            dispatch(up());
+        } else if (menuLevel === 2) {
             // Load MenuPage
-        } else if (props.menuLevel === 3) {
+        } else if (menuLevel === 3) {
             // Close UserPage & OpenMenuPage & Load MenuPage
-            props.setOpening(false);
-            props.setClosing(false);
-            props.setMenuLevel(2);
+            dispatch(down());
         }
     };
 

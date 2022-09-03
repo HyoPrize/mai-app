@@ -3,8 +3,12 @@ import ControlDiv from "../styles/ControlDiv";
 import ControlButton from "../styles/ControlButton";
 import { useState } from "react";
 
+import { useSelector } from "react-redux";
+
 function CircleModeControl(props) {
     const [isMouseEnter, setIsMouseEnter] = useState(false);
+
+    const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
 
     const onClickButton = () => {
         props.setIsCircleMode((current) => !current);
@@ -18,8 +22,21 @@ function CircleModeControl(props) {
         setIsMouseEnter(false);
     };
 
+    const getPixelFromMenuLevel = () => {
+        switch (menuLevel) {
+            case 0:
+            case 1:
+            case 2:
+                return "40px";
+            case 3:
+                return "540px";
+            default:
+                return "40px";
+        }
+    };
+
     return (
-        <ControlDiv menuLevel={props.menuLevel} top="100px">
+        <ControlDiv style={{ right: getPixelFromMenuLevel(), top: "100px" }}>
             <ControlButton {...props} onClick={onClickButton} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <Icon
                     icon={"add-location"}

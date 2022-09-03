@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { useSelector } from "react-redux";
+
 const MenuPageDiv = styled("div")`
     position: absolute;
     left: 250px;
@@ -14,7 +16,9 @@ const MenuPageDiv = styled("div")`
 `;
 
 function MenuPage(props) {
-    return <div>{props.menuLevel === 2 ? <MenuPageDiv></MenuPageDiv> : null}</div>;
+    const { menuLevel } = useSelector((state) => state.menuLevel);
+
+    return <div>{menuLevel === 2 ? <MenuPageDiv></MenuPageDiv> : null}</div>;
 }
 
 export default MenuPage;

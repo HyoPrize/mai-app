@@ -2,9 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@blueprintjs/core";
 
+import { useSelector, useDispatch } from "react-redux";
+import { down, reset, up } from "redux/actions/menuLevelAction";
+
 const ButtonDiv = styled("div")`
     position: absolute;
-    left: ${function (props) {
+    /* left: ${function (props) {
         switch (Number(props.menuLevel)) {
             case 0:
                 return "0px";
@@ -16,39 +19,26 @@ const ButtonDiv = styled("div")`
             default:
                 return "0px";
         }
-    }};
+    }}; */
     top: ${(props) => props.top};
     width: ${(props) => props.size / 2};
     height: ${(props) => props.size};
     overflow: hidden;
     z-index: 2;
 
-    animation: ${function (props) {
-        if (props.opening) {
-            return "btn-open-event 0.2s forwards";
-        } else if (props.closing) {
-            return "btn-close-event 0.2s forwards";
-        } else {
-            return "none";
+    /* transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1); */
+    transition: ${function (props) {
+        if (props.menuLevel !== 2) {
+            console.log(props.menuLevel);
+            return "all 500ms cubic-bezier(0.25, 0.1, 0.25, 1)";
         }
     }};
-
-    @keyframes btn-open-event {
-        0% {
-            left: 0px;
+    transition-timing-function: ${function (props) {
+        if (props.menuLevel !== 2) {
+            return "all 500ms cubic-bezier(0.25, 0.1, 0.25, 1)";
         }
-        100% {
-            left: 252px;
-        }
-    }
-    @keyframes btn-close-event {
-        0% {
-            left: 252px;
-        }
-        100% {
-            left: 0px;
-        }
-    }
+    }};
 `;
 
 const Button = styled("button")`
@@ -72,25 +62,20 @@ const Button = styled("button")`
 function MenuToggleButton({ ...props }) {
     const [isMouseEnter, setIsMouseEnter] = useState(false);
 
+    const dispatch = useDispatch();
+    const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
+
     const iconSizeProp = Number(props.size.replace("px", "")) / 2;
 
     const onClickMenuBtn = () => {
-        if (props.menuLevel === 0) {
-            props.setMenuLevel((current) => current + 1);
-            props.setOpening(true);
-            props.setClosing(false);
-        } else if (props.menuLevel === 1) {
-            props.setMenuLevel((current) => current - 1);
-            props.setOpening(false);
-            props.setClosing(true);
-        } else if (props.menuLevel === 2) {
-            props.setOpening(false);
-            props.setClosing(false);
-            props.setMenuLevel((current) => current - 1);
-        } else if (props.menuLevel === 3) {
-            props.setMenuLevel(0);
-            props.setOpening(false);
-            props.setClosing(true);
+        if (menuLevel === 0) {
+            dispatch(up());
+        } else if (menuLevel === 1) {
+            dispatch(down());
+        } else if (menuLevel === 2) {
+            dispatch(down());
+        } else if (menuLevel === 3) {
+            dispatch(reset());
         } else {
             console.log("MenuLevel Error");
         }
@@ -103,17 +88,25 @@ function MenuToggleButton({ ...props }) {
         setIsMouseEnter(false);
     }
 
+    const getPixelFromMenuLevel = () => {
+        switch (menuLevel) {
+            case 0:
+                return "0px";
+            case 1:
+            case 3:
+                return "252px";
+            case 2:
+                return "754px";
+            default:
+                return "0px";
+        }
+    };
+
     return (
-        <ButtonDiv
-            opening={props.opening}
-            setOpening={props.setOpening}
-            closing={props.closing}
-            setClosing={props.setClosing}
-            {...props}
-        >
+        <ButtonDiv {...props} menuLevel={menuLevel} style={{ left: getPixelFromMenuLevel() }}>
             <Button onClick={onClickMenuBtn} onMouseEnter={onMouseEnterMenuBtn} onMouseLeave={onMouseLeaveMenuBtn}>
                 <Icon
-                    icon={props.menuLevel === 0 ? "caret-right" : "caret-left"}
+                    icon={menuLevel === 0 ? "caret-right" : "caret-left"}
                     color={isMouseEnter ? "#FFB17A" : "grey"}
                     iconSize={iconSizeProp}
                 />
