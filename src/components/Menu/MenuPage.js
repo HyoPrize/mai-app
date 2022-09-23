@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { useSelector } from "react-redux";
+import Favorite from "components/Favorite/Favorite";
 
 const MenuPageDiv = styled("div")`
     position: absolute;
@@ -18,7 +19,15 @@ const MenuPageDiv = styled("div")`
 function MenuPage(props) {
     const { menuLevel } = useSelector((state) => state.menuLevel);
 
-    return <div>{menuLevel === 2 ? <MenuPageDiv></MenuPageDiv> : null}</div>;
+    return (
+        <div>
+            {menuLevel === 2 ? (
+                <MenuPageDiv>
+                    <Favorite></Favorite>
+                </MenuPageDiv>
+            ) : null}
+        </div>
+    );
 }
 
 export default MenuPage;

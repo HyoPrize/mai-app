@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Icon } from "@blueprintjs/core";
 
 import { useSelector, useDispatch } from "react-redux";
-import { down, reset, up } from "redux/actions/menuLevelAction";
+import { down, reset, up } from "redux/actions/MenuLevelAction";
 
 const ButtonDiv = styled("div")`
     position: absolute;
@@ -26,11 +26,8 @@ const ButtonDiv = styled("div")`
     overflow: hidden;
     z-index: 2;
 
-    /* transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
-    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1); */
     transition: ${function (props) {
         if (props.menuLevel !== 2) {
-            console.log(props.menuLevel);
             return "all 500ms cubic-bezier(0.25, 0.1, 0.25, 1)";
         }
     }};
@@ -91,9 +88,9 @@ function MenuToggleButton({ ...props }) {
     const getPixelFromMenuLevel = () => {
         switch (menuLevel) {
             case 0:
+            case 3:
                 return "0px";
             case 1:
-            case 3:
                 return "252px";
             case 2:
                 return "754px";

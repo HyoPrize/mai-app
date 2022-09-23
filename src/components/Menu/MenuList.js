@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 import { useSelector } from "react-redux";
+import { List } from "@mui/material";
 
-const MenuListNav = styled("nav")`
+const StyledMenuList = styled("List")`
     position: absolute;
 
     top: 0px;
@@ -24,10 +25,10 @@ const MenuListNav = styled("nav")`
 function MenuList(props) {
     const { menuLevel } = useSelector((state) => state.menuLevel);
 
-    console.log(menuLevel);
     const getPixelFromMenuLevel = () => {
         switch (menuLevel) {
             case 0:
+            case 3:
                 return "-252px";
             case 1:
                 return "0px";
@@ -37,11 +38,14 @@ function MenuList(props) {
     };
 
     return (
-        <div>
-            <MenuListNav style={{ left: getPixelFromMenuLevel() }} {...props}>
-                <ul>{props.children}</ul>
-            </MenuListNav>
-        </div>
+        <StyledMenuList style={{ left: getPixelFromMenuLevel() }}>
+            <ul>{props.children}</ul>
+        </StyledMenuList>
+        // <div>
+        //     <MenuListNav style={{ left: getPixelFromMenuLevel() }} {...props}>
+        //         <ul>{props.children}</ul>
+        //     </MenuListNav>
+        // </div>
     );
 }
 

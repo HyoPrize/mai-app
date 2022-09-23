@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import MapCanvas from "../components/MapCanvas";
-import Menu from "../components/Menu";
-import User from "../components/User";
-import ControlGroup from "../components/ControlGroup";
+import MapCanvas from "../components/Map/MapCanvas";
+import Menu from "../components/Menu/Menu";
+import User from "../components/User/User";
+import ControlGroup from "../components/Control/ControlGroup";
 
 const ParentDiv = styled("div")`
     position: relative;

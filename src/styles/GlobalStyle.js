@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import "@fontsource/roboto/300.css";
+
 const GlobalStyle = createGlobalStyle`
 
   body {

@@ -2,23 +2,11 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setLevel } from "redux/actions/menuLevelAction";
+import { setLevel } from "redux/actions/MenuLevelAction";
+import { closeUserToggle, openUserToggle } from "redux/actions/UserToggleAction";
 
 const UserIconBtn = styled("button")`
     position: absolute;
-    /* right: ${function (props) {
-        switch (Number(props.menuLevel)) {
-            case 0:
-            case 1:
-            case 2:
-                return "40px";
-            case 3:
-                return "540px";
-            default:
-                return "40px";
-        }
-    }}; */
-
     top: 30px;
     width: 50px;
     height: 50px;
@@ -51,31 +39,6 @@ const UserMenuDiv = styled("div")`
 
     transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-    /* animation: ${function (props) {
-        if (props.opening) {
-            return "open-event 0.2s forwards ease-out";
-        } else if (props.closing) {
-            return "close-event 0.2s forwards ease-out";
-        } else {
-            return "none";
-        }
-    }};
-    @keyframes open-event {
-        0% {
-            width: 50px;
-        }
-        100% {
-            width: 250px;
-        }
-    }
-    @keyframes close-event {
-        0% {
-            width: 250px;
-        }
-        100% {
-            width: 50px;
-        }
-    } */
 `;
 
 const UserMenuFlexBox = styled("div")`
@@ -103,13 +66,16 @@ const UserPageDiv = styled("div")`
     z-index: 1;
     border-left: 2px solid grey;
     border-right: 2px solid grey;
-
     background-color: #fffded95;
+
+    transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 `;
 
-function UserIcon(props) {
+function UserIcon() {
     const dispatch = useDispatch();
-    const menuLevel = useSelector((state) => state.menuLevel);
+    const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
+    const userToggle = useSelector((state) => state.userToggle.userToggle);
 
     const getPixelFromMenuLevel = () => {
         switch (menuLevel) {
@@ -125,17 +91,11 @@ function UserIcon(props) {
     };
 
     const onClickUserIcon = () => {
-        if (props.opening) {
-            props.setOpening(false);
-            props.setClosing(true);
-        } else if (props.closing) {
-            props.setOpening(true);
-            props.setClosing(false);
+        if (userToggle) {
+            dispatch(closeUserToggle());
         } else {
-            props.setOpening(true);
-            props.setClosing(false);
+            dispatch(openUserToggle());
         }
-        //setIsOpen((current) => !current);
     };
 
     return <UserIconBtn onClick={onClickUserIcon} style={{ right: getPixelFromMenuLevel() }}></UserIconBtn>;
@@ -143,8 +103,10 @@ function UserIcon(props) {
 
 function UserMenu(props) {
     const dispatch = useDispatch();
-    const menuLevel = useSelector((state) => state.menuLevel);
+    const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
+    const userToggle = useSelector((state) => state.userToggle.userToggle);
 
+    console.log(menuLevel);
     const onClickLogin = () => {
         dispatch(setLevel(3));
     };
@@ -166,8 +128,31 @@ function UserMenu(props) {
         }
     };
 
+    const getPixelFromUserToggle = () => {
+        if (userToggle) {
+            return "250px";
+        } else {
+            return "50px";
+        }
+    };
+
+    const getBorderRadiusFromUserToggle = () => {
+        if (userToggle) {
+            return "15px 25px 25px 15px";
+        } else {
+            return "25px 25px 25px 25px";
+        }
+    };
+
     return (
-        <UserMenuDiv style={{ right: getPixelFromMenuLevel() }} {...props}>
+        <UserMenuDiv
+            style={{
+                right: getPixelFromMenuLevel(),
+                width: getPixelFromUserToggle(),
+                borderRadius: getBorderRadiusFromUserToggle(),
+            }}
+            {...props}
+        >
             <UserMenuFlexBox>
                 <UserMenuItemDiv onClick={onClickLogin} className="clickable-text-hover">
                     로그인
@@ -180,17 +165,28 @@ function UserMenu(props) {
     );
 }
 
-function UserPage(props) {
-    return <div>{props.menuLevel === 3 ? <UserPageDiv></UserPageDiv> : null}</div>;
+function UserPage() {
+    const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
+
+    const getPixelFromMenuLevel = () => {
+        switch (menuLevel) {
+            case 3:
+                return "0px";
+            default:
+                return "-503px";
+        }
+    };
+
+    return <UserPageDiv style={{ right: getPixelFromMenuLevel() }}></UserPageDiv>;
 }
 
-function User(props) {
+function User() {
     return (
-        <div>
+        <>
             <UserIcon></UserIcon>
             <UserMenu></UserMenu>
             <UserPage></UserPage>
-        </div>
+        </>
     );
 }
 

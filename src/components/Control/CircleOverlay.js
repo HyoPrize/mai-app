@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@blueprintjs/core";
 import Select from "react-select";
-import latlong from "../utils/calc_latlong";
+import latlong from "utils/calc_latlong";
 
 const CircleOverlayDiv = styled("div")`
     background-color: #fffded95;

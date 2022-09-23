@@ -1,23 +1,23 @@
 import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
-import { up, down } from "redux/actions/menuLevelAction";
+import { up, down } from "redux/actions/MenuLevelAction";
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from "@mui/material";
 
-const MenuItemDiv = styled("div")`
+const StyledMenuItem = styled("ListItem")`
     display: flex;
     justify-content: left;
     align-items: center;
-    width: 95%;
-    height: 50px;
-    margin: 2.5% 0 2.5% 2.5%;
+    width: 100%;
+    height: 60px;
 
-    border-radius: 10px;
+    //border-radius: 10px;
 
-    span {
+    /* span {
         margin-left: 10px;
-    }
+    } */
 
-    .menu-item-icon {
+    /* .menu-item-icon {
         height: 70%;
         aspect-ratio: 1/1;
         border: 2px solid #ffb17a;
@@ -26,7 +26,7 @@ const MenuItemDiv = styled("div")`
 
     :hover {
         box-shadow: 0px 1px 5px rgba(128, 128, 128);
-    }
+    } */
 `;
 
 function MenuItem(props) {
@@ -47,10 +47,15 @@ function MenuItem(props) {
 
     return (
         <li>
-            <MenuItemDiv style={{ cursor: "pointer" }} className="clickable-text-hover" onClick={onclickMenuItem}>
+            <StyledMenuItem className="clickable-text-hover" onClick={onclickMenuItem}>
+                <ListItemButton>
+                    <ListItemText>{props.name}</ListItemText>
+                </ListItemButton>
+            </StyledMenuItem>
+            {/* <MenuItemDiv style={{ cursor: "pointer" }} className="clickable-text-hover" onClick={onclickMenuItem}>
                 <span className="menu-item-icon"></span>
                 <span className="menu-item-name">{props.name}</span>
-            </MenuItemDiv>
+            </MenuItemDiv> */}
         </li>
     );
 }

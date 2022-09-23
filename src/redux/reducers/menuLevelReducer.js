@@ -6,25 +6,25 @@ export default function addMenuLevelReducer(state = initialState, action) {
     switch (action.type) {
         case "UP": {
             return {
-                ...state,
+                //...state,
                 menuLevel: state.menuLevel + 1,
             };
         }
         case "DOWN": {
             return {
-                ...state,
+                //...state,
                 menuLevel: state.menuLevel - 1,
             };
         }
         case "RESET": {
             return {
-                ...state,
+                //...state,
                 menuLevel: 0,
             };
         }
         case "SET_LEVEL": {
             return {
-                ...state,
+                //...state,
                 menuLevel: action.payload,
             };
         }

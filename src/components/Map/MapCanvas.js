@@ -2,7 +2,7 @@ import { React, useState, useRef, Fragment } from "react";
 import styled from "styled-components";
 import { Map, Polyline, Circle, CustomOverlayMap } from "react-kakao-maps-sdk";
 
-import CircleOverlay from "./CircleOverlay";
+import CircleOverlay from "components/Control/CircleOverlay";
 
 const MapDiv = styled("div")`
     position: relative;

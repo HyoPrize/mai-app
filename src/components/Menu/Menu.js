@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MenuToggleButton from "../components/MenuToggleButton";
+import MenuToggleButton from "components/Menu/MenuToggleButton";
 import MenuList from "./MenuList";
 import MenuItem from "./MenuItem";
 import MenuPage from "./MenuPage";

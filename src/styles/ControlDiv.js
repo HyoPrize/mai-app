@@ -2,21 +2,13 @@ import styled from "styled-components";
 
 const ControlDiv = styled("div")`
     position: absolute;
-    /* right: ${function (props) {
-        switch (Number(props.menuLevel)) {
-            case 0:
-            case 1:
-            case 2:
-                return "40px";
-            case 3:
-                return "540px";
-            default:
-                return "40px";
-        }
-    }}; */
+
     width: 50px;
     height: 50px;
     z-index: 2;
+
+    transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 `;
 
 export default ControlDiv;

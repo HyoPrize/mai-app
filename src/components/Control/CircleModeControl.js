@@ -1,6 +1,6 @@
 import { Icon } from "@blueprintjs/core";
-import ControlDiv from "../styles/ControlDiv";
-import ControlButton from "../styles/ControlButton";
+import ControlDiv from "styles/ControlDiv";
+import ControlButton from "styles/ControlButton";
 import { useState } from "react";
 
 import { useSelector } from "react-redux";
