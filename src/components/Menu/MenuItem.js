@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { up, down } from "redux/actions/MenuLevelAction";
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from "@mui/material";
 
-const StyledMenuItem = styled("ListItem")`
+const StyledMenuItem = styled(ListItem)`
     display: flex;
     justify-content: left;
     align-items: center;

@@ -91,9 +91,9 @@ function MenuToggleButton({ ...props }) {
             case 3:
                 return "0px";
             case 1:
-                return "252px";
+                return "402px";
             case 2:
-                return "754px";
+                return "802px";
             default:
                 return "0px";
         }

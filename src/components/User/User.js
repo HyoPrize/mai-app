@@ -106,7 +106,6 @@ function UserMenu(props) {
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
     const userToggle = useSelector((state) => state.userToggle.userToggle);
 
-    console.log(menuLevel);
     const onClickLogin = () => {
         dispatch(setLevel(3));
     };

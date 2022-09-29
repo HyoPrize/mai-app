@@ -1,5 +1,5 @@
-const SELECT = "SELECT";
-const CANCEL = "CANCEL";
+export const SELECT = "SELECT";
+export const CANCEL = "CANCEL";
 
 export const select = (menuName) => {
     return {
