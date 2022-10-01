@@ -29,7 +29,7 @@ function CircleModeControl(props) {
             case 2:
                 return "40px";
             case 3:
-                return "540px";
+                return "440px";
             default:
                 return "40px";
         }

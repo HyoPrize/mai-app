@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { Typography, Box, Tabs, Tab, TextField } from "@mui/material";
+import { Typography, Box, Tabs, Tab } from "@mui/material";
 import { useState } from "react";
 import Favorite from "components/Menu/Favorite/Favorite";
 import History from "components/Menu/History/History";
@@ -127,7 +127,6 @@ function MenuPageFirst(props) {
                 </TabPanel>
                 <TabPanel value={tabValue} index={2}>
                     <Share />
-                    Item Three
                 </TabPanel>
             </MenuPageFirstDiv>
         </Box>
