@@ -11,8 +11,16 @@ const theme = createTheme({
         body1: {
             fontWeight: 600,
         },
+        h5: {
+            fontWeight: 600,
+        },
         divider: {
             background: "#e3e3e3",
+        },
+    },
+    palette: {
+        mai: {
+            main: "#ffb17a",
         },
     },
 });

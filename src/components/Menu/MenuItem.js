@@ -40,7 +40,7 @@ function MenuItem(props) {
         } else if (menuLevel === 2) {
             // Load MenuPage
         } else if (menuLevel === 3) {
-            // Close UserPage & OpenMenuPage & Load MenuPage
+            // Close UserFrame & OpenMenuPage & Load MenuPage
             dispatch(down());
         }
     };

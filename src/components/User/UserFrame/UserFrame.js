@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import SignIn from "../SignIn/SignIn";
-import SignUp from "../SignUp/SignUp";
+import LoginPage from "../LoginPage/LoginPage";
+import RegisterPage from "../RegisterPage/RegisterPage";
 
-const UserPageDiv = styled("div")`
+const UserFrameDiv = styled("div")`
     position: absolute;
     right: 0px;
     top: 0px;
@@ -18,7 +18,7 @@ const UserPageDiv = styled("div")`
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 `;
 
-const UserPage = () => {
+const UserFrame = () => {
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
 
     const getPixelFromMenuLevel = () => {
@@ -31,11 +31,11 @@ const UserPage = () => {
     };
 
     return (
-        <UserPageDiv style={{ right: getPixelFromMenuLevel() }}>
-            <SignIn></SignIn>
-            <SignUp></SignUp>
-        </UserPageDiv>
+        <UserFrameDiv style={{ right: getPixelFromMenuLevel() }}>
+            <LoginPage></LoginPage>
+            <RegisterPage></RegisterPage>
+        </UserFrameDiv>
     );
 };
 
-export default UserPage;
+export default UserFrame;

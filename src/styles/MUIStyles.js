@@ -22,6 +22,12 @@ const useMUIStyles = makeStyles((theme) => ({
     textField: {
         color: "#ffb17a",
     },
+    userPage: {
+        margin: theme.spacing(10, 2),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
 }));
 
 export default useMUIStyles;

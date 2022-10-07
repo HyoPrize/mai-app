@@ -4,14 +4,16 @@ import addMenuLevelReducer from "./reducers/MenuLevelReducer";
 import addMenuSelectReducer from "./reducers/MenuSelectReducer";
 import addUserToggleReducer from "./reducers/UserToggleReducer";
 import addMenuSearchTextReducer from "./reducers/MenuSearchTextReducer";
-import addUserSignReducer from "./reducers/UserSignReducer";
+import addUserPageStateReducer from "./reducers/UserPageStateReducer";
+import addUserReducer from "./reducers/UserReducer";
 
 const rootReducer = combineReducers({
     menuLevel: addMenuLevelReducer,
     menuSelect: addMenuSelectReducer,
     searchText: addMenuSearchTextReducer,
     userToggle: addUserToggleReducer,
-    userSign: addUserSignReducer,
+    userPageState: addUserPageStateReducer,
+    userInfo: addUserReducer,
 });
 
 export default rootReducer;

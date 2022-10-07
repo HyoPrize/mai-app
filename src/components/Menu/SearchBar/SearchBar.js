@@ -23,6 +23,7 @@ const SearchBar = () => {
                     type="search"
                     id="outlined-basic"
                     variant="outlined"
+                    color="mai"
                 />
             </div>
             <div style={{ flexGrow: "1" }}>

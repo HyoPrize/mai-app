@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { setLevel } from "redux/actions/MenuLevelAction";
-import { signIn, signUp } from "redux/actions/UserSignAction";
+import { setUserPage, cancelUserPage } from "redux/actions/UserPageStateAction";
 
 const UserMenuDiv = styled("div")`
     position: absolute;
@@ -45,14 +45,14 @@ const UserMenu = (props) => {
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
     const userToggle = useSelector((state) => state.userToggle.userToggle);
 
-    const onClickSignIn = () => {
+    const onClickLogin = () => {
         dispatch(setLevel(3));
-        dispatch(signIn());
+        dispatch(setUserPage("login"));
     };
 
-    const onClickSignUp = () => {
+    const onClickRegister = () => {
         dispatch(setLevel(3));
-        dispatch(signUp());
+        dispatch(setUserPage("register"));
     };
 
     const getPixelFromMenuLevel = () => {
@@ -94,10 +94,10 @@ const UserMenu = (props) => {
             {...props}
         >
             <UserMenuFlexBox>
-                <UserMenuItemDiv onClick={onClickSignIn} className="clickable-text-hover">
+                <UserMenuItemDiv onClick={onClickLogin} className="clickable-text-hover">
                     로그인
                 </UserMenuItemDiv>
-                <UserMenuItemDiv onClick={onClickSignUp} className="clickable-text-hover">
+                <UserMenuItemDiv onClick={onClickRegister} className="clickable-text-hover">
                     회원가입
                 </UserMenuItemDiv>
             </UserMenuFlexBox>
