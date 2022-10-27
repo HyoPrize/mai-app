@@ -21,6 +21,7 @@ const UserIcon = () => {
     const dispatch = useDispatch();
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
     const userToggle = useSelector((state) => state.userToggle.userToggle);
+    const isLogin = useSelector((state) => state.user.isLogin);
 
     const getPixelFromMenuLevel = () => {
         switch (menuLevel) {
@@ -43,7 +44,12 @@ const UserIcon = () => {
         }
     };
 
-    return <UserIconBtn onClick={onClickUserIcon} style={{ right: getPixelFromMenuLevel() }}></UserIconBtn>;
+    return (
+        <UserIconBtn
+            onClick={onClickUserIcon}
+            style={{ right: getPixelFromMenuLevel(), backgroundColor: isLogin ? "red" : "black" }}
+        ></UserIconBtn>
+    );
 };
 
 export default UserIcon;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
-import { up, down } from "redux/actions/MenuLevelAction";
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from "@mui/material";
+import { upMenuLevel, downMenuLevel } from "redux/actions/MenuLevelAction";
+import { ListItem, ListItemButton, ListItemText } from "@mui/material";
 
 const StyledMenuItem = styled(ListItem)`
     display: flex;
@@ -36,12 +36,12 @@ function MenuItem(props) {
     const onclickMenuItem = () => {
         if (menuLevel === 1) {
             // Open MenuPage & Load MenuPage
-            dispatch(up());
+            dispatch(upMenuLevel());
         } else if (menuLevel === 2) {
             // Load MenuPage
         } else if (menuLevel === 3) {
             // Close UserFrame & OpenMenuPage & Load MenuPage
-            dispatch(down());
+            dispatch(downMenuLevel());
         }
     };
 

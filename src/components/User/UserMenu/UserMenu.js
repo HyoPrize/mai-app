@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { setLevel } from "redux/actions/MenuLevelAction";
-import { setUserPage, cancelUserPage } from "redux/actions/UserPageStateAction";
+import { resetMenuLevel, setMenuLevel } from "redux/actions/MenuLevelAction";
+import { setUserPage } from "redux/actions/UserPageStateAction";
+import { logout } from "redux/actions/UserAction";
+import { closeUserToggle } from "redux/actions/UserToggleAction";
 
 const UserMenuDiv = styled("div")`
     position: absolute;
@@ -44,14 +46,29 @@ const UserMenu = (props) => {
     const dispatch = useDispatch();
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
     const userToggle = useSelector((state) => state.userToggle.userToggle);
+    const isLogin = useSelector((state) => state.user.isLogin);
+
+    const onClickUserInfo = () => {
+        dispatch(setMenuLevel(3));
+    };
+
+    const onClickLogout = () => {
+        dispatch(logout());
+        dispatch(resetMenuLevel());
+        dispatch(closeUserToggle());
+        const oldToken = localStorage.getItem("token");
+        if (oldToken) {
+            localStorage.removeItem("token");
+        }
+    };
 
     const onClickLogin = () => {
-        dispatch(setLevel(3));
+        dispatch(setMenuLevel(3));
         dispatch(setUserPage("login"));
     };
 
     const onClickRegister = () => {
-        dispatch(setLevel(3));
+        dispatch(setMenuLevel(3));
         dispatch(setUserPage("register"));
     };
 
@@ -94,12 +111,25 @@ const UserMenu = (props) => {
             {...props}
         >
             <UserMenuFlexBox>
-                <UserMenuItemDiv onClick={onClickLogin} className="clickable-text-hover">
-                    로그인
-                </UserMenuItemDiv>
-                <UserMenuItemDiv onClick={onClickRegister} className="clickable-text-hover">
-                    회원가입
-                </UserMenuItemDiv>
+                {isLogin ? (
+                    <>
+                        <UserMenuItemDiv onClick={onClickUserInfo} className="clickable-text-hover">
+                            내정보
+                        </UserMenuItemDiv>
+                        <UserMenuItemDiv onClick={onClickLogout} className="clickable-text-hover">
+                            로그아웃
+                        </UserMenuItemDiv>
+                    </>
+                ) : (
+                    <>
+                        <UserMenuItemDiv onClick={onClickLogin} className="clickable-text-hover">
+                            로그인
+                        </UserMenuItemDiv>
+                        <UserMenuItemDiv onClick={onClickRegister} className="clickable-text-hover">
+                            회원가입
+                        </UserMenuItemDiv>
+                    </>
+                )}
             </UserMenuFlexBox>
         </UserMenuDiv>
     );

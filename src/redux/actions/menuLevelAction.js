@@ -1,29 +1,29 @@
-export const UP = "UP";
-export const DOWN = "DOWN";
-export const RESET = "RESET";
-export const SETLEVEL = "SET_LEVEL";
+export const UP_MENU_LEVEL = "UP_MENU_LEVEL";
+export const DOWN_MENU_LEVEL = "DOWN_MENU_LEVEL";
+export const RESET_MENU_LEVEL = "RESET_MENU_LEVEL";
+export const SET_MENU_LEVEL = "SET_MENU_LEVEL";
 
-export const up = () => {
+export const upMenuLevel = () => {
     return {
-        type: UP,
+        type: UP_MENU_LEVEL,
     };
 };
 
-export const down = () => {
+export const downMenuLevel = () => {
     return {
-        type: DOWN,
+        type: DOWN_MENU_LEVEL,
     };
 };
 
-export const reset = () => {
+export const resetMenuLevel = () => {
     return {
-        type: RESET,
+        type: RESET_MENU_LEVEL,
     };
 };
 
-export const setLevel = (menuLevel) => {
+export const setMenuLevel = (menuLevel) => {
     return {
-        type: SETLEVEL,
+        type: SET_MENU_LEVEL,
         payload: menuLevel,
     };
 };

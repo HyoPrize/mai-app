@@ -5,13 +5,13 @@ import { useSelector } from "react-redux";
 import swal from "sweetalert";
 import useMUIStyles from "styles/MUIStyles";
 
-async function RegisterUser(credentials) {
-    return fetch("https://www.mecallapi.com/api/login", {
+async function RegisterUser(body) {
+    return fetch("http://localhost:5001/users/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(credentials),
+        body: JSON.stringify(body),
     }).then((data) => data.json());
 }
 
@@ -26,23 +26,27 @@ const RegisterPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await RegisterUser({
-            userName,
-            email,
-            password,
-            confirmPassword,
-        });
-        if ("accessToken" in response) {
-            swal("Success", response.message, "success", {
-                buttons: false,
-                timer: 2000,
-            }).then((value) => {
-                localStorage.setItem("accessToken", response["accessToken"]);
-                localStorage.setItem("user", JSON.stringify(response["user"]));
-                window.location.href = "/profile";
+
+        if (password === confirmPassword) {
+            const response = await RegisterUser({
+                userId: userName,
+                userEmail: email,
+                userPassword: password,
             });
+            if ("accessToken" in response) {
+                swal("Success", response.message, "success", {
+                    buttons: false,
+                    timer: 2000,
+                }).then((value) => {
+                    // localStorage.setItem("accessToken", response["accessToken"]);
+                    // localStorage.setItem("user", JSON.stringify(response["user"]));
+                    // window.location.href = "/profile";
+                });
+            } else {
+                swal("Failed", response.message, "error");
+            }
         } else {
-            swal("Failed", response.message, "error");
+            swal("Failed", "'비밀번호'와 '비밀번호 확인'이 일치하지 않습니다.", "error");
         }
     };
 

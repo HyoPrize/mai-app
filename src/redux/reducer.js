@@ -6,6 +6,8 @@ import addUserToggleReducer from "./reducers/UserToggleReducer";
 import addMenuSearchTextReducer from "./reducers/MenuSearchTextReducer";
 import addUserPageStateReducer from "./reducers/UserPageStateReducer";
 import addUserReducer from "./reducers/UserReducer";
+import addFavoriteReducer from "./reducers/FavoriteReducer";
+import addHistoryReducer from "./reducers/HistoryReducer";
 
 const rootReducer = combineReducers({
     menuLevel: addMenuLevelReducer,
@@ -13,7 +15,9 @@ const rootReducer = combineReducers({
     searchText: addMenuSearchTextReducer,
     userToggle: addUserToggleReducer,
     userPageState: addUserPageStateReducer,
-    userInfo: addUserReducer,
+    user: addUserReducer,
+    favorite: addFavoriteReducer,
+    history: addHistoryReducer,
 });
 
 export default rootReducer;

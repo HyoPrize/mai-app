@@ -1,7 +1,7 @@
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 
-export const login = async (userInfo) => {
+export const login = (userInfo) => {
     return {
         type: LOGIN,
         payload: userInfo,

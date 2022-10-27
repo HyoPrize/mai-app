@@ -11,7 +11,7 @@ const MapDiv = styled("div")`
     height: 100vh;
 `;
 
-//const { kakao } = window;
+const { kakao } = window;
 
 function MapCanvas(props) {
     const [isDrawing, setIsDrawing] = useState(false);

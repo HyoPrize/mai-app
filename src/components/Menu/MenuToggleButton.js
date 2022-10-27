@@ -3,24 +3,11 @@ import styled from "styled-components";
 import { Icon } from "@blueprintjs/core";
 
 import { useSelector, useDispatch } from "react-redux";
-import { down, reset, up } from "redux/actions/MenuLevelAction";
+import { downMenuLevel, resetMenuLevel, upMenuLevel } from "redux/actions/MenuLevelAction";
 import { cancelUserPage } from "redux/actions/UserPageStateAction";
 
 const ButtonDiv = styled("div")`
     position: absolute;
-    /* left: ${function (props) {
-        switch (Number(props.menuLevel)) {
-            case 0:
-                return "0px";
-            case 1:
-            case 3:
-                return "252px";
-            case 2:
-                return "754px";
-            default:
-                return "0px";
-        }
-    }}; */
     top: ${(props) => props.top};
     width: ${(props) => props.size / 2};
     height: ${(props) => props.size};
@@ -67,13 +54,13 @@ function MenuToggleButton({ ...props }) {
 
     const onClickMenuBtn = () => {
         if (menuLevel === 0) {
-            dispatch(up());
+            dispatch(upMenuLevel());
         } else if (menuLevel === 1) {
-            dispatch(down());
+            dispatch(downMenuLevel());
         } else if (menuLevel === 2) {
-            dispatch(down());
+            dispatch(downMenuLevel());
         } else if (menuLevel === 3) {
-            dispatch(reset());
+            dispatch(resetMenuLevel());
             dispatch(cancelUserPage());
         } else {
             console.log("MenuLevel Error");

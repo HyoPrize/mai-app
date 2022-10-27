@@ -2,7 +2,6 @@
 userInfo : {
     userName : string,
     email : string,
-    accessToken : token
 }
 */
 

@@ -1,17 +1,20 @@
 import { LockOpen } from "@mui/icons-material";
 import { Avatar, TextField, Button, Typography, Box } from "@mui/material";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import useMUIStyles from "styles/MUIStyles";
+import { resetMenuLevel } from "redux/actions/MenuLevelAction";
+import { closeUserToggle } from "redux/actions/UserToggleAction";
+import { login } from "redux/actions/UserAction";
 
-async function loginUser(credentials) {
-    return fetch("https://www.mecallapi.com/api/login", {
+async function loginUser(body) {
+    return fetch("http://localhost:5001/users/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(credentials),
+        body: JSON.stringify(body),
     }).then((data) => data.json());
 }
 
@@ -19,26 +22,37 @@ const LoginPage = (props) => {
     const userPageState = useSelector((state) => state.userPageState.userPageState);
 
     const classes = useMUIStyles();
-    const [userName, setUserName] = useState();
-    const [password, setPassword] = useState();
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await loginUser({
-            userName,
-            password,
+            userId: userName,
+            userPassword: password,
         });
-        if ("accessToken" in response) {
-            swal("Success", response.message, "success", {
-                buttons: false,
-                timer: 2000,
-            }).then((value) => {
-                localStorage.setItem("accessToken", response["accessToken"]);
-                localStorage.setItem("user", JSON.stringify(response["user"]));
-                window.location.href = "/profile";
-            });
+        if (response.isSuccess) {
+            if ("token" in response) {
+                swal("Success", response.message, "success", {
+                    buttons: false,
+                    timer: 2000,
+                }).then((value) => {
+                    localStorage.setItem("token", response.token);
+                    dispatch(login({ userId: response.userId, userEmail: response.userEmail }));
+                    dispatch(resetMenuLevel());
+                    dispatch(closeUserToggle());
+                });
+            } else {
+                swal("Failed", response.message, "error");
+                setUserName("");
+                setPassword("");
+            }
         } else {
             swal("Failed", response.message, "error");
+            setUserName("");
+            setPassword("");
         }
     };
 
@@ -63,6 +77,7 @@ const LoginPage = (props) => {
                         name="사용자명"
                         label="사용자명"
                         color="mai"
+                        value={userName || ""}
                         onChange={(e) => setUserName(e.target.value)}
                     />
                     <TextField
@@ -75,6 +90,7 @@ const LoginPage = (props) => {
                         label="비밀번호"
                         type="password"
                         color="mai"
+                        value={password || ""}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <Button type="submit" fullWidth variant="contained" disableElevation color="mai">

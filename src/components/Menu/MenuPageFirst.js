@@ -63,6 +63,7 @@ function MenuPageFirst(props) {
     const { menuLevel } = useSelector((state) => state.menuLevel);
     const [tabValue, setTabValue] = useState(0);
     const classes = useMUIStyles();
+    const isLogin = useSelector((state) => state.user.isLogin);
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
@@ -84,50 +85,58 @@ function MenuPageFirst(props) {
         <Box>
             <MenuPageFirstDiv style={{ left: getPixelFromMenuLevel() }}>
                 MUI
-                <SearchBar></SearchBar>
-                <Tabs
-                    value={tabValue}
-                    onChange={handleChange}
-                    TabIndicatorProps={{
-                        style: { background: "#ffb17a" },
-                    }}
-                    classes={{ textColor: classes.customStyleOnTab }}
-                >
-                    <Tab
-                        style={{ minWidth: "0px", padding: "0", display: "flex", flex: "1" }}
-                        label={
-                            <span className={tabValue === 0 ? classes.activeTab : classes.customStyleOnTab}>
-                                즐겨찾기
-                            </span>
-                        }
-                        {...a11yProps(0)}
-                    />
-                    <Tab
-                        style={{ minWidth: "0px", padding: "0", display: "flex", flex: "1" }}
-                        label={
-                            <span className={tabValue === 1 ? classes.activeTab : classes.customStyleOnTab}>
-                                검색기록
-                            </span>
-                        }
-                        {...a11yProps(1)}
-                    />
-                    <Tab
-                        style={{ minWidth: "0px", padding: "0", display: "flex", flex: "1" }}
-                        label={
-                            <span className={tabValue === 2 ? classes.activeTab : classes.customStyleOnTab}>공유</span>
-                        }
-                        {...a11yProps(2)}
-                    />
-                </Tabs>
-                <TabPanel value={tabValue} index={0}>
-                    <Favorite />
-                </TabPanel>
-                <TabPanel value={tabValue} index={1}>
-                    <History />
-                </TabPanel>
-                <TabPanel value={tabValue} index={2}>
-                    <Share />
-                </TabPanel>
+                {isLogin ? (
+                    <>
+                        <SearchBar></SearchBar>
+                        <Tabs
+                            value={tabValue}
+                            onChange={handleChange}
+                            TabIndicatorProps={{
+                                style: { background: "#ffb17a" },
+                            }}
+                            classes={{ textColor: classes.customStyleOnTab }}
+                        >
+                            <Tab
+                                style={{ minWidth: "0px", padding: "0", display: "flex", flex: "1" }}
+                                label={
+                                    <span className={tabValue === 0 ? classes.activeTab : classes.customStyleOnTab}>
+                                        즐겨찾기
+                                    </span>
+                                }
+                                {...a11yProps(0)}
+                            />
+                            <Tab
+                                style={{ minWidth: "0px", padding: "0", display: "flex", flex: "1" }}
+                                label={
+                                    <span className={tabValue === 1 ? classes.activeTab : classes.customStyleOnTab}>
+                                        검색기록
+                                    </span>
+                                }
+                                {...a11yProps(1)}
+                            />
+                            <Tab
+                                style={{ minWidth: "0px", padding: "0", display: "flex", flex: "1" }}
+                                label={
+                                    <span className={tabValue === 2 ? classes.activeTab : classes.customStyleOnTab}>
+                                        공유
+                                    </span>
+                                }
+                                {...a11yProps(2)}
+                            />
+                        </Tabs>
+                        <TabPanel value={tabValue} index={0}>
+                            <Favorite />
+                        </TabPanel>
+                        <TabPanel value={tabValue} index={1}>
+                            <History />
+                        </TabPanel>
+                        <TabPanel value={tabValue} index={2}>
+                            <Share />
+                        </TabPanel>
+                    </>
+                ) : (
+                    <div>로그인 후 이용 가능합니다.</div>
+                )}
             </MenuPageFirstDiv>
         </Box>
         // <StyledMenuList style={{ left: getPixelFromMenuLevel() }}>
