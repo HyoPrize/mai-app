@@ -4,7 +4,7 @@ import styled from "styled-components";
 import MapCanvas from "../components/Map/MapCanvas";
 import Menu from "../components/Menu/Menu";
 import User from "../components/User/User";
-import ControlGroup from "../components/Control/ControlGroup";
+import ControlGroup from "../components/Control/ControlGroup/ControlGroup";
 
 const ParentDiv = styled("div")`
     position: relative;
@@ -12,14 +12,14 @@ const ParentDiv = styled("div")`
 `;
 
 function MapPage() {
-    const [isCircleMode, setIsCircleMode] = useState(false);
+    const [isDrawing, setIsDrawing] = useState(false);
 
     return (
         <ParentDiv>
-            <MapCanvas isCircleMode={isCircleMode} setIsCircleMode={setIsCircleMode} />
+            <MapCanvas isDrawing={isDrawing} setIsDrawing={setIsDrawing} />
             <Menu></Menu>
             <User></User>
-            <ControlGroup isCircleMode={isCircleMode} setIsCircleMode={setIsCircleMode}></ControlGroup>
+            <ControlGroup setIsDrawing={setIsDrawing}></ControlGroup>
         </ParentDiv>
     );
 }

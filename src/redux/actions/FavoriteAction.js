@@ -2,6 +2,7 @@ export const INIT_FAVORITE = "INIT_FAVORITE";
 export const SET_FAVORITES = "SET_FAVORITES";
 export const ADD_FAVORITE = "ADD_FAVORITE";
 export const DELETE_FAVORITE = "DELETE_FAVORITE";
+export const LOAD_FAVORITE = "LOAD_FAVORITE";
 
 export const initFavorite = () => {
     return {

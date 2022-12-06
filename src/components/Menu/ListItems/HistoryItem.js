@@ -3,14 +3,31 @@ import { ListItemText, ListItem, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useDispatch } from "react-redux";
+import { deleteHistory } from "redux/actions/HistoryAction";
 import useMUIStyles from "styles/MUIStyles";
 
-const SearchItem = (props) => {
+const HistoryItem = (props) => {
     const classes = useMUIStyles();
     const dispatch = useDispatch();
 
     const onClickDelete = () => {
-        dispatch(props.onClickDelete(props.no));
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        fetch("http://localhost:5001/users/histories/delete", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: token,
+            },
+            body: JSON.stringify({ historyNo: props.no }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.isSuccess) {
+                    dispatch(deleteHistory(data.historyNo));
+                }
+            });
     };
 
     return (
@@ -45,11 +62,11 @@ const SearchItem = (props) => {
     );
 };
 
-SearchItem.propTypes = {
+HistoryItem.propTypes = {
     no: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     hashTags: PropTypes.arrayOf(PropTypes.string),
     onClickDelete: PropTypes.func,
 };
 
-export default SearchItem;
+export default HistoryItem;

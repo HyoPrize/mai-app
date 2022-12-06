@@ -26,11 +26,11 @@ const ButtonDiv = styled("div")`
     }};
 `;
 
-const Button = styled("button")`
+const ToggleButton = styled("button")`
     width: 100%;
     height: 100%;
 
-    background-color: #fffded90;
+    /* background-color: #fffded90; */
     padding: 3px 0px 0px 0px;
     border: 2px solid grey;
     border-left: none;
@@ -45,12 +45,11 @@ const Button = styled("button")`
 `;
 
 function MenuToggleButton({ ...props }) {
-    const [isMouseEnter, setIsMouseEnter] = useState(false);
-
     const dispatch = useDispatch();
+    const subColor = useSelector((state) => state.color.subColor);
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
 
-    const iconSizeProp = Number(props.size.replace("px", "")) / 2;
+    const [isMouseEnter, setIsMouseEnter] = useState(false);
 
     const onClickMenuBtn = () => {
         if (menuLevel === 0) {
@@ -90,13 +89,18 @@ function MenuToggleButton({ ...props }) {
 
     return (
         <ButtonDiv {...props} menuLevel={menuLevel} style={{ left: getPixelFromMenuLevel() }}>
-            <Button onClick={onClickMenuBtn} onMouseEnter={onMouseEnterMenuBtn} onMouseLeave={onMouseLeaveMenuBtn}>
+            <ToggleButton
+                style={{ backgroundColor: subColor }}
+                onClick={onClickMenuBtn}
+                onMouseEnter={onMouseEnterMenuBtn}
+                onMouseLeave={onMouseLeaveMenuBtn}
+            >
                 <Icon
                     icon={menuLevel === 0 ? "caret-right" : "caret-left"}
                     color={isMouseEnter ? "#FFB17A" : "grey"}
-                    iconSize={iconSizeProp}
+                    iconSize={Number(props.size.replace("px", "")) / 2}
                 />
-            </Button>
+            </ToggleButton>
         </ButtonDiv>
     );
 }

@@ -7,7 +7,7 @@ export default function addUserPageStateReducer(state = initialState, action) {
         case "SET_USERPAGE": {
             return {
                 ...state,
-                userPageState: action.payload, // login or register
+                userPageState: action.payload, // login, register, userInfo, markerInfo
             };
         }
         case "CANCEL_USERPAGE": {

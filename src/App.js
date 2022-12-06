@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import GlobalStyle from "./styles/GlobalStyle";
-import MapPage from "./routes/Map";
+import MapPage from "./routes/MapPage";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";

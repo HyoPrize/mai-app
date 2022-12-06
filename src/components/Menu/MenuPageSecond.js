@@ -12,13 +12,18 @@ const MenuPageSecondDiv = styled("div")`
     border-left: 2px solid grey;
     border-right: 2px solid grey;
 
-    background-color: #fffded95;
+    /* background-color: #fffded95; */
 `;
 
 function MenuPageSecond(props) {
-    const { menuLevel } = useSelector((state) => state.menuLevel);
+    const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
+    const subColor = useSelector((state) => state.color.subColor);
 
-    return <div>{menuLevel === 2 ? <MenuPageSecondDiv></MenuPageSecondDiv> : null}</div>;
+    return (
+        <div>
+            {menuLevel === 2 ? <MenuPageSecondDiv style={{ backgroundColor: subColor }}></MenuPageSecondDiv> : null}
+        </div>
+    );
 }
 
 export default MenuPageSecond;

@@ -2,8 +2,8 @@ import { List, ListItem } from "@mui/material";
 import { useEffect } from "react";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteHistory, setHistories } from "redux/actions/HistoryAction";
-import SearchItem from "../ListItems/SearchItem";
+import { setHistories } from "redux/actions/HistoryAction";
+import HistoryItem from "../ListItems/HistoryItem";
 
 const History = () => {
     const dispatch = useDispatch();
@@ -36,13 +36,12 @@ const History = () => {
                     ? histories
                           .filter((history) => history.historyString.includes(searchText))
                           .map((history) => (
-                              <SearchItem
+                              <HistoryItem
                                   key={`history${history.historyNo}`}
                                   no={history.historyNo}
                                   name={history.historyName}
                                   hashTags={history.historyHashtags}
-                                  onClickDelete={deleteHistory}
-                              ></SearchItem>
+                              ></HistoryItem>
                           ))
                     : null}
             </List>

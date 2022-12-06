@@ -1,9 +1,9 @@
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { List } from "@mui/material";
-import PlaceItem from "../ListItems/PlaceItem";
+import FavoriteItem from "../ListItems/FavoriteItem";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { deleteFavorite, setFavorites } from "redux/actions/FavoriteAction";
+import { setFavorites } from "redux/actions/FavoriteAction";
 
 const Favorite = () => {
     const dispatch = useDispatch();
@@ -36,15 +36,15 @@ const Favorite = () => {
                     ? favorites
                           .filter((favorite) => favorite.favoriteString.includes(searchText))
                           .map((favorite) => (
-                              <PlaceItem
+                              <FavoriteItem
                                   key={`favorite${favorite.favoriteNo}`}
                                   no={favorite.favoriteNo}
+                                  placeId={favorite.placeId}
                                   name={favorite.favoriteName}
                                   previewPath={`http://localhost.com/favorites/image?no=${favorite.favoriteNo}`}
                                   address={favorite.favoriteAddress}
                                   hashTags={favorite.favoriteHashtags}
-                                  onClickDelete={deleteFavorite}
-                              ></PlaceItem>
+                              ></FavoriteItem>
                           ))
                     : null}
             </List>

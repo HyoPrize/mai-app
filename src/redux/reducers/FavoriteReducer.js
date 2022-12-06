@@ -1,6 +1,7 @@
 /*
 favorite : {
     favoriteNo: number,
+    placeId: number,
     favoriteName: string,
     favoriteAddress: string,
     favoriteHashtags: array<string>,
@@ -12,7 +13,7 @@ const initialState = {
     favorites: [],
 };
 
-export default function addFavoriteReducer(state = initialState, action) {
+const addFavoriteReducer = (state = initialState, action) => {
     switch (action.type) {
         case "INIT_FAVORITE": {
             return {
@@ -22,7 +23,6 @@ export default function addFavoriteReducer(state = initialState, action) {
         }
         case "SET_FAVORITES": {
             let favorites = action.payload.favorites;
-
             favorites = favorites.map((favorite) => {
                 return {
                     ...favorite,
@@ -48,4 +48,6 @@ export default function addFavoriteReducer(state = initialState, action) {
         default:
             return state;
     }
-}
+};
+
+export default addFavoriteReducer;

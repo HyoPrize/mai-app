@@ -2,9 +2,6 @@ import styled from "styled-components";
 
 const ControlDiv = styled("div")`
     position: absolute;
-
-    width: 50px;
-    height: 50px;
     z-index: 2;
 
     transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);

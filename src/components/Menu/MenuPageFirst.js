@@ -16,7 +16,7 @@ const MenuPageFirstDiv = styled("div")`
     width: 400px;
     height: 100%;
     z-index: 1;
-    background-color: #fffded95;
+    /* background-color: #fffded95; */
     border-right: 2px solid grey;
     ul {
         list-style: none;
@@ -60,10 +60,11 @@ function a11yProps(index) {
 }
 
 function MenuPageFirst(props) {
-    const { menuLevel } = useSelector((state) => state.menuLevel);
-    const [tabValue, setTabValue] = useState(0);
     const classes = useMUIStyles();
+    const subColor = useSelector((state) => state.color.subColor);
+    const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
     const isLogin = useSelector((state) => state.user.isLogin);
+    const [tabValue, setTabValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
@@ -83,7 +84,7 @@ function MenuPageFirst(props) {
 
     return (
         <Box>
-            <MenuPageFirstDiv style={{ left: getPixelFromMenuLevel() }}>
+            <MenuPageFirstDiv style={{ left: getPixelFromMenuLevel(), backgroundColor: subColor }}>
                 MUI
                 {isLogin ? (
                     <>
@@ -139,14 +140,6 @@ function MenuPageFirst(props) {
                 )}
             </MenuPageFirstDiv>
         </Box>
-        // <StyledMenuList style={{ left: getPixelFromMenuLevel() }}>
-        //     <ul>{props.children}</ul>
-        // </StyledMenuList>
-        // <div>
-        //     <MenuListNav style={{ left: getPixelFromMenuLevel() }} {...props}>
-        //         <ul>{props.children}</ul>
-        //     </MenuListNav>
-        // </div>
     );
 }
 

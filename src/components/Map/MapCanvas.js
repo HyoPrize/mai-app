@@ -2,7 +2,10 @@ import { React, useState, useRef, Fragment } from "react";
 import styled from "styled-components";
 import { Map, Polyline, Circle, CustomOverlayMap } from "react-kakao-maps-sdk";
 
-import CircleOverlay from "components/Control/CircleOverlay";
+import CircleOverlay from "components/Control/CircleOverlay/CircleOverlay";
+import { useDispatch, useSelector } from "react-redux";
+import { setCircleMode } from "redux/actions/CircleModeAction";
+import { addCircle } from "redux/actions/CircleAction";
 
 const MapDiv = styled("div")`
     position: relative;
@@ -14,20 +17,23 @@ const MapDiv = styled("div")`
 const { kakao } = window;
 
 function MapCanvas(props) {
-    const [isDrawing, setIsDrawing] = useState(false);
     const [drawingCircleData, setDrawingCircleData] = useState();
     const drawingLineRef = useRef();
-    const [circles, setCircles] = useState([]);
+    //const [circles, setCircles] = useState([]);
     const [mousePosition, setMousePosition] = useState({
         lat: 0,
         lng: 0,
     });
+    const [isRangeError, setIsRangeError] = useState(false);
 
-    const [isRangeOver, setIsRangeOver] = useState(false);
+    const dispatch = useDispatch();
+    const isCircleMode = useSelector((state) => state.circleMode.isCircleMode);
+    const circles = useSelector((state) => state.circles.circles);
+    const map = useSelector((state) => state.map);
 
     const handleClick = (_map, mouseEvent) => {
-        if (props.isCircleMode) {
-            if (!isDrawing) {
+        if (isCircleMode) {
+            if (!props.isDrawing) {
                 setDrawingCircleData({
                     center: {
                         lat: mouseEvent.latLng.getLat(),
@@ -35,36 +41,38 @@ function MapCanvas(props) {
                     },
                     radius: 0,
                 });
-                setIsDrawing(true);
+                props.setIsDrawing(true);
             }
         }
     };
 
     const handleMouseMove = (_map, mouseEvent) => {
-        if (props.isCircleMode) {
+        if (isCircleMode) {
             setMousePosition({
                 lat: mouseEvent.latLng.getLat(),
                 lng: mouseEvent.latLng.getLng(),
             });
-            if (isDrawing) {
+            if (props.isDrawing) {
                 const drawingLine = drawingLineRef.current;
                 setDrawingCircleData((prev) => ({
                     ...prev,
                     radius: drawingLine.getLength(),
                 }));
 
-                setIsRangeOver(Math.floor(drawingLine.getLength()) > 100000);
+                setIsRangeError(
+                    Math.floor(drawingLine.getLength()) > 5000 || Math.floor(drawingLine.getLength()) < 100
+                );
             }
         }
     };
 
     const handleRightClick = (_map, _mouseEvent) => {
-        if (props.isCircleMode) {
-            if (isDrawing) {
-                if (!isRangeOver) {
-                    setIsDrawing(false);
-                    setCircles((prev) => [...prev, { ...drawingCircleData, mousePosition }]);
-                    props.setIsCircleMode(false);
+        if (isCircleMode) {
+            if (props.isDrawing) {
+                if (!isRangeError) {
+                    props.setIsDrawing(false);
+                    dispatch(addCircle({ ...drawingCircleData, mousePosition }));
+                    dispatch(setCircleMode(false));
                 }
             }
         }
@@ -74,15 +82,18 @@ function MapCanvas(props) {
         <MapDiv>
             <Map
                 id={"map"}
-                center={{ lat: 37.33, lng: 126.72 }}
+                // center={{ lat: 37.33, lng: 126.72 }}
+                center={map.center}
+                isPanto={map.isPanto}
                 style={{ width: "100%", height: "100%" }}
                 level={7}
                 onClick={handleClick}
                 onRightClick={handleRightClick}
                 onMouseMove={handleMouseMove}
                 disableDoubleClickZoom={true}
+                zoomable={map.isZoomable}
             >
-                {isDrawing && (
+                {props.isDrawing && (
                     <>
                         <Circle
                             center={drawingCircleData.center}
@@ -105,7 +116,9 @@ function MapCanvas(props) {
                         <CustomOverlayMap position={mousePosition} xAnchor={0} yAnchor={0} zIndex={1}>
                             <div className="info">
                                 반경 <span className="number">{Math.floor(drawingCircleData.radius)}</span> m
-                                {isRangeOver ? <div style={{ color: "red" }}>범위가 너무 큽니다!</div> : null}
+                                {isRangeError ? (
+                                    <div style={{ color: "red" }}>100m ~ 5000m 내로 설정해주세요.</div>
+                                ) : null}
                             </div>
                         </CustomOverlayMap>
                     </>
@@ -132,10 +145,9 @@ function MapCanvas(props) {
                         <CustomOverlayMap position={circle.mousePosition} xAnchor={0} yAnchor={0} zIndex={1}>
                             <CircleOverlay
                                 distance={Math.floor(circle.radius)}
-                                circle={circle}
                                 lat={circle.center.lat}
                                 lon={circle.center.lng}
-                                setCircles={setCircles}
+                                circle={circle}
                             />
                         </CustomOverlayMap>
                     </Fragment>

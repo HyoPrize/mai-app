@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import UserInfoPage from "../UserInfoPage/UserInfoPage";
+import MarkerMorePage from "../MarkerMorePage/MarkerMorePage";
 
 const UserFrameDiv = styled("div")`
     position: absolute;
@@ -12,7 +14,7 @@ const UserFrameDiv = styled("div")`
     z-index: 1;
     border-left: 2px solid grey;
     border-right: 2px solid grey;
-    background-color: #fffded95;
+    /* background-color: #fffded95; */
 
     transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -20,6 +22,7 @@ const UserFrameDiv = styled("div")`
 
 const UserFrame = () => {
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
+    const subColor = useSelector((state) => state.color.subColor);
 
     const getPixelFromMenuLevel = () => {
         switch (menuLevel) {
@@ -31,9 +34,11 @@ const UserFrame = () => {
     };
 
     return (
-        <UserFrameDiv style={{ right: getPixelFromMenuLevel() }}>
+        <UserFrameDiv style={{ right: getPixelFromMenuLevel(), backgroundColor: subColor }}>
             <LoginPage></LoginPage>
             <RegisterPage></RegisterPage>
+            <UserInfoPage></UserInfoPage>
+            <MarkerMorePage></MarkerMorePage>
         </UserFrameDiv>
     );
 };

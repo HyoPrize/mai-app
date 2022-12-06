@@ -2,14 +2,34 @@ import { Delete, NearMe } from "@mui/icons-material";
 import { ListItemAvatar, Avatar, ListItemText, ListItem, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import { deleteFavorite, setFavorites } from "redux/actions/FavoriteAction";
 import useMUIStyles from "styles/MUIStyles";
 
-const PlaceItem = (props) => {
+const FavoriteItem = (props) => {
     const classes = useMUIStyles();
     const dispatch = useDispatch();
 
-    const onClickDelete = () => {
-        dispatch(props.onClickDelete(props.no));
+    const onClickDelete = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        await fetch("http://localhost:5001/users/favorites/delete", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: token,
+            },
+            body: JSON.stringify({ placeId: props.placeId }),
+        });
+        const response = await fetch("http://localhost:5001/users/favorites", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: token,
+            },
+        });
+        const data = await response.json();
+        dispatch(setFavorites(data));
     };
 
     return (
@@ -49,13 +69,12 @@ const PlaceItem = (props) => {
     );
 };
 
-PlaceItem.propTypes = {
+FavoriteItem.propTypes = {
     no: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     previewPath: PropTypes.string,
     address: PropTypes.string.isRequired,
     hashTags: PropTypes.arrayOf(PropTypes.string),
-    onClickDelete: PropTypes.func,
 };
 
-export default PlaceItem;
+export default FavoriteItem;

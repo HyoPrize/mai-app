@@ -15,7 +15,7 @@ async function loginUser(body) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
-    }).then((data) => data.json());
+    }).then((response) => response.json());
 }
 
 const LoginPage = (props) => {
@@ -29,28 +29,28 @@ const LoginPage = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await loginUser({
+        const loginData = await loginUser({
             userId: userName,
             userPassword: password,
         });
-        if (response.isSuccess) {
-            if ("token" in response) {
-                swal("Success", response.message, "success", {
+        if (loginData.isSuccess) {
+            if ("token" in loginData) {
+                swal("Success", loginData.message, "success", {
                     buttons: false,
                     timer: 2000,
                 }).then((value) => {
-                    localStorage.setItem("token", response.token);
-                    dispatch(login({ userId: response.userId, userEmail: response.userEmail }));
+                    localStorage.setItem("token", loginData.token);
+                    dispatch(login({ userId: loginData.userId, userEmail: loginData.userEmail }));
                     dispatch(resetMenuLevel());
                     dispatch(closeUserToggle());
                 });
             } else {
-                swal("Failed", response.message, "error");
+                swal("Failed", loginData.message, "error");
                 setUserName("");
                 setPassword("");
             }
         } else {
-            swal("Failed", response.message, "error");
+            swal("Failed", loginData.message, "error");
             setUserName("");
             setPassword("");
         }
@@ -90,6 +90,7 @@ const LoginPage = (props) => {
                         label="비밀번호"
                         type="password"
                         color="mai"
+                        autoComplete="on"
                         value={password || ""}
                         onChange={(e) => setPassword(e.target.value)}
                     />

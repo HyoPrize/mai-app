@@ -1,4 +1,4 @@
-import { HowToReg, HowToRegOutlined, LockOutlined } from "@mui/icons-material";
+import { HowToReg } from "@mui/icons-material";
 import { Avatar, TextField, Button, Typography, Box } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,7 +12,7 @@ async function RegisterUser(body) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
-    }).then((data) => data.json());
+    }).then((response) => response.json());
 }
 
 const RegisterPage = () => {
@@ -28,13 +28,13 @@ const RegisterPage = () => {
         e.preventDefault();
 
         if (password === confirmPassword) {
-            const response = await RegisterUser({
+            const RegisterData = await RegisterUser({
                 userId: userName,
                 userEmail: email,
                 userPassword: password,
             });
-            if ("accessToken" in response) {
-                swal("Success", response.message, "success", {
+            if ("accessToken" in RegisterData) {
+                swal("Success", RegisterData.message, "success", {
                     buttons: false,
                     timer: 2000,
                 }).then((value) => {
@@ -43,7 +43,7 @@ const RegisterPage = () => {
                     // window.location.href = "/profile";
                 });
             } else {
-                swal("Failed", response.message, "error");
+                swal("Failed", RegisterData.message, "error");
             }
         } else {
             swal("Failed", "'비밀번호'와 '비밀번호 확인'이 일치하지 않습니다.", "error");
@@ -89,11 +89,12 @@ const RegisterPage = () => {
                         margin="normal"
                         required
                         fullWidth
-                        id="password"
+                        id="firstPassword"
                         name="비밀번호"
                         label="비밀번호"
                         type="password"
                         color="mai"
+                        autoComplete="on"
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <TextField
@@ -106,6 +107,7 @@ const RegisterPage = () => {
                         label="비밀번호 확인"
                         type="password"
                         color="mai"
+                        autoComplete="on"
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <Button type="submit" fullWidth variant="contained" disableElevation color="mai">

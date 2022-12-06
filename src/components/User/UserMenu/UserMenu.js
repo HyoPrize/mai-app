@@ -10,7 +10,7 @@ const UserMenuDiv = styled("div")`
     top: 30px;
     width: 50px;
     height: 50px;
-    background-color: #fffded95;
+    /* background-color: #fffded95; */
     border-radius: ${function (props) {
         if (props.opening) {
             return "15px 25px 25px 15px";
@@ -47,9 +47,11 @@ const UserMenu = (props) => {
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
     const userToggle = useSelector((state) => state.userToggle.userToggle);
     const isLogin = useSelector((state) => state.user.isLogin);
+    const subColor = useSelector((state) => state.color.subColor);
 
     const onClickUserInfo = () => {
         dispatch(setMenuLevel(3));
+        dispatch(setUserPage("userInfo"));
     };
 
     const onClickLogout = () => {
@@ -107,6 +109,7 @@ const UserMenu = (props) => {
                 right: getPixelFromMenuLevel(),
                 width: getPixelFromUserToggle(),
                 borderRadius: getBorderRadiusFromUserToggle(),
+                backgroundColor: subColor,
             }}
             {...props}
         >

@@ -23,6 +23,16 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  .clickable-text {
+    color: black;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    cursor: pointer;
+  }
+
   .complete-circle-info {
     list-style: none;
         padding-left: 0px;
