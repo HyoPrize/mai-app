@@ -73,7 +73,7 @@ const MarkerOverlay = (props) => {
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
 
     useEffect(() => {
-        dispatch(addMarker({ placeId: props.place.placeId, markerId: props.id }));
+        dispatch(addMarker({ place: props.place, markerId: props.id }));
         return () => dispatch(deleteMarker(props.id));
     }, []);
 
@@ -124,7 +124,7 @@ const MarkerOverlay = (props) => {
                             }}
                         ></CloseButton>
                         <MarkerHashtag>
-                            {props.place.placeHashtags.map((hashTag, index) => (
+                            {props.place.placeHashtags.slice(0, 3).map((hashTag, index) => (
                                 <span key={index}>#{hashTag} </span>
                             ))}
                         </MarkerHashtag>

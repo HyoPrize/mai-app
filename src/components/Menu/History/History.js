@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { useDispatch, useSelector } from "react-redux";
 import { setHistories } from "redux/actions/HistoryAction";
-import HistoryItem from "../ListItems/HistoryItem";
+import HistoryItem from "./HistoryItem";
 
 const History = () => {
     const dispatch = useDispatch();
@@ -34,13 +34,12 @@ const History = () => {
             <List>
                 {histories
                     ? histories
-                          .filter((history) => history.historyString.includes(searchText))
+                          .filter((history) => history.placeString.includes(searchText))
                           .map((history) => (
                               <HistoryItem
-                                  key={`history${history.historyNo}`}
-                                  no={history.historyNo}
-                                  name={history.historyName}
-                                  hashTags={history.historyHashtags}
+                                  key={`history${history.placeId}`}
+                                  name={history.placeName}
+                                  hashTags={history.placeHashtags}
                               ></HistoryItem>
                           ))
                     : null}

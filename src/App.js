@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import Chart from "chart.js/auto";
 import GlobalStyle from "./styles/GlobalStyle";
 import MapPage from "./routes/MapPage";
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -27,6 +27,12 @@ const theme = createTheme({
         },
     },
 });
+
+Chart.defaults.font.family = "Roboto";
+Chart.defaults.font.size = 16;
+Chart.defaults.font.weight = "bold";
+Chart.defaults.color = "#000000";
+Chart.defaults.scale.ticks.stepSize = 1;
 
 function App() {
     const dispatch = useDispatch();

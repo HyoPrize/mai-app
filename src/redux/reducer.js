@@ -3,12 +3,13 @@ import { combineReducers } from "redux";
 import addMapReducer from "./reducers/MapReducer";
 import addMenuLevelReducer from "./reducers/MenuLevelReducer";
 import addMenuSelectReducer from "./reducers/MenuSelectReducer";
-import addUserToggleReducer from "./reducers/UserToggleReducer";
 import addMenuSearchTextReducer from "./reducers/MenuSearchTextReducer";
+import addUserToggleReducer from "./reducers/UserToggleReducer";
 import addUserPageStateReducer from "./reducers/UserPageStateReducer";
 import addUserReducer from "./reducers/UserReducer";
 import addFavoriteReducer from "./reducers/FavoriteReducer";
 import addHistoryReducer from "./reducers/HistoryReducer";
+import addShareReducer from "./reducers/ShareReducer";
 import addCircleModeReducer from "./reducers/CircleModeReducer";
 import addCircleReducer from "./reducers/CircleReducer";
 import addMarkerReducer from "./reducers/MarkerReducer";
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     user: addUserReducer,
     favorite: addFavoriteReducer,
     history: addHistoryReducer,
+    share: addShareReducer,
     circleMode: addCircleModeReducer,
     circles: addCircleReducer,
     markers: addMarkerReducer,

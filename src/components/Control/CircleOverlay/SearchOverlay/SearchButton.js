@@ -65,6 +65,7 @@ const SearchButton = (props) => {
                                 placeReviews: placeInfo.placeReviews,
                                 placeKeyword: keyword,
                                 placeHashtags: placeInfo.placeHashtags,
+                                placeHashtagCounts: placeInfo.placeHashtagCounts,
                                 placeStar: placeInfo.placeStar,
                                 center: {
                                     lat: props.lat,
@@ -84,6 +85,7 @@ const SearchButton = (props) => {
                             placeReviews: null,
                             placeKeyword: keyword,
                             placeHashtags: null,
+                            placeHashtagCounts: null,
                             center: {
                                 lat: props.lat,
                                 lng: props.lon,

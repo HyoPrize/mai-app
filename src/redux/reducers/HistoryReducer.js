@@ -1,9 +1,9 @@
 /*
 history : {
-    historyNo: number,
-    historyName: string,
-    historyHashtags: array<string>,
-    historyString: string
+    placeId: number,
+    placeName: string,
+    placeHashtags: array<string>,
+    placeString: string
 }
 */
 
@@ -25,7 +25,7 @@ export default function addHistoryReducer(state = initialState, action) {
             histories = histories.map((history) => {
                 return {
                     ...history,
-                    historyString: history.historyName + history.historyHashtags.join(""),
+                    placeString: history.placeName + history.placeHashtags.join(""),
                 };
             });
             return {
@@ -33,14 +33,6 @@ export default function addHistoryReducer(state = initialState, action) {
                 histories: histories,
             };
         }
-        case "ADD_HISTORY": {
-            let history = action.payload.history;
-            history.historyString = history.historyName + history.historyHashtags.join("");
-            return [...state, history];
-        }
-        case "DELETE_HISTORY":
-            const updatedHistorys = state.histories.filter((history) => history.historyNo !== action.payload);
-            return { ...state, histories: updatedHistorys };
         default:
             return state;
     }

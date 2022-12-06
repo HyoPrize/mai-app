@@ -8,7 +8,7 @@ export default function addMarkerReducer(state = initialState, action) {
     switch (action.type) {
         case "ADD_MARKER": {
             const markerInfo = action.payload;
-            const marker = { id: markerInfo.markerId, placeId: markerInfo.placeId, isShow: false, isFixed: false };
+            const marker = { id: markerInfo.markerId, place: markerInfo.place, isShow: false, isFixed: false };
             state.markers.push(marker);
             return { ...state };
         }

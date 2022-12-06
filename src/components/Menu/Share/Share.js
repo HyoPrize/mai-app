@@ -1,59 +1,49 @@
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { List } from "@mui/material";
-//import PlaceItem from "../ListItems/FavoriteItem";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setShares } from "redux/actions/ShareAction";
+import ShareItem from "./ShareItem";
 
 const Share = () => {
+    const dispatch = useDispatch();
+    const isLogin = useSelector((state) => state.user.isLogin);
+    const shares = useSelector((state) => state.share.shares);
+
+    useEffect(() => {
+        if (isLogin) {
+            const token = localStorage.getItem("token");
+            if (!token) return;
+            fetch("http://localhost:5001/shares?length=10", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: token,
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    dispatch(setShares(data));
+                });
+        }
+    }, [isLogin]);
+
     return (
         <Scrollbars style={{ position: "absolute", height: "auto", top: "130px", bottom: "0px" }}>
             <List>
-                {/* <PlaceItem
-                    name="A"
-                    previewPath=""
-                    address="경기 안양시 동안구 시민대로 273"
-                    hashTags={["A", "B", "C"]}
-                ></PlaceItem>
-                <PlaceItem
-                    name="A"
-                    previewPath=""
-                    address="경기도 시흥시 정왕동~"
-                    hashTags={["A", "B", "C"]}
-                ></PlaceItem>
-                <PlaceItem
-                    name="A"
-                    previewPath=""
-                    address="경기도 시흥시 정왕동~"
-                    hashTags={["A", "B", "C"]}
-                ></PlaceItem>
-                <PlaceItem
-                    name="A"
-                    previewPath=""
-                    address="경기도 시흥시 정왕동~"
-                    hashTags={["A", "B", "C"]}
-                ></PlaceItem>
-                <PlaceItem
-                    name="A"
-                    previewPath=""
-                    address="경기도 시흥시 정왕동~"
-                    hashTags={["A", "B", "C"]}
-                ></PlaceItem>
-                <PlaceItem
-                    name="A"
-                    previewPath=""
-                    address="경기도 시흥시 정왕동~"
-                    hashTags={["A", "B", "C"]}
-                ></PlaceItem>
-                <PlaceItem
-                    name="A"
-                    previewPath=""
-                    address="경기도 시흥시 정왕동~"
-                    hashTags={["A", "B", "C"]}
-                ></PlaceItem>
-                <PlaceItem
-                    name="A"
-                    previewPath=""
-                    address="경기도 시흥시 정왕동~"
-                    hashTags={["A", "B", "C"]}
-                ></PlaceItem> */}
+                {shares
+                    ? shares.map((share) => (
+                          <ShareItem
+                              key={`share${share.placeId}`}
+                              placeId={share.placeId}
+                              name={share.placeName}
+                              previewPath={`http://localhost.com/places/image?no=${share.placeId}`}
+                              address={share.placeAddress}
+                              hashTags={share.placeHashtags.slice(0, 3)}
+                              favoriteCount={share.placefavoriteCount}
+                          ></ShareItem>
+                      ))
+                    : null}
             </List>
         </Scrollbars>
     );

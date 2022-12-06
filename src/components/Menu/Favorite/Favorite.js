@@ -1,6 +1,6 @@
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { List } from "@mui/material";
-import FavoriteItem from "../ListItems/FavoriteItem";
+import FavoriteItem from "./FavoriteItem";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setFavorites } from "redux/actions/FavoriteAction";
@@ -34,16 +34,15 @@ const Favorite = () => {
             <List>
                 {favorites
                     ? favorites
-                          .filter((favorite) => favorite.favoriteString.includes(searchText))
+                          .filter((favorite) => favorite.placeString.includes(searchText))
                           .map((favorite) => (
                               <FavoriteItem
-                                  key={`favorite${favorite.favoriteNo}`}
-                                  no={favorite.favoriteNo}
+                                  key={`favorite${favorite.placeId}`}
                                   placeId={favorite.placeId}
-                                  name={favorite.favoriteName}
-                                  previewPath={`http://localhost.com/favorites/image?no=${favorite.favoriteNo}`}
-                                  address={favorite.favoriteAddress}
-                                  hashTags={favorite.favoriteHashtags}
+                                  name={favorite.placeName}
+                                  previewPath={`http://localhost.com/places/image?no=${favorite.placeId}`}
+                                  address={favorite.placeAddress}
+                                  hashTags={favorite.placeHashtags.slice(0, 3)}
                               ></FavoriteItem>
                           ))
                     : null}

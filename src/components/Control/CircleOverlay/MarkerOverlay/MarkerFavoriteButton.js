@@ -1,7 +1,7 @@
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadFavorite, setFavorites } from "redux/actions/FavoriteAction";
+import { setFavorites } from "redux/actions/FavoriteAction";
 import styled from "styled-components";
 
 const MarkerFavoriteButtonDiv = styled("div")`

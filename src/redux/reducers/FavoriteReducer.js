@@ -1,11 +1,10 @@
 /*
 favorite : {
-    favoriteNo: number,
     placeId: number,
-    favoriteName: string,
-    favoriteAddress: string,
-    favoriteHashtags: array<string>,
-    favoriteString: string
+    placeName: string,
+    placeAddress: string,
+    placeHashtags: array<string>,
+    placeString: string
 }
 */
 
@@ -15,7 +14,7 @@ const initialState = {
 
 const addFavoriteReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "INIT_FAVORITE": {
+        case "INIT_FAVORITES": {
             return {
                 ...state,
                 favorites: [],
@@ -26,8 +25,7 @@ const addFavoriteReducer = (state = initialState, action) => {
             favorites = favorites.map((favorite) => {
                 return {
                     ...favorite,
-                    favoriteString:
-                        favorite.favoriteName + favorite.favoriteHashtags.join("") + favorite.favoriteAddress,
+                    placeString: favorite.placeName + favorite.placeHashtags.join("") + favorite.placeAddress,
                 };
             });
             return {
@@ -35,16 +33,6 @@ const addFavoriteReducer = (state = initialState, action) => {
                 favorites: favorites,
             };
         }
-        case "ADD_FAVORITE": {
-            let favorite = action.payload.favorite;
-
-            favorite.favoriteString =
-                favorite.favoriteName + favorite.favoriteHashtags.join("") + favorite.favoriteAddress;
-            return [...state, favorite];
-        }
-        case "DELETE_FAVORITE":
-            const updatedFavorites = state.favorites.filter((favorite) => favorite.favoriteNo !== action.payload);
-            return { ...state, favorites: updatedFavorites };
         default:
             return state;
     }

@@ -3,31 +3,34 @@ import { ListItemText, ListItem, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useDispatch } from "react-redux";
-import { deleteHistory } from "redux/actions/HistoryAction";
+import { setHistories } from "redux/actions/HistoryAction";
 import useMUIStyles from "styles/MUIStyles";
 
 const HistoryItem = (props) => {
     const classes = useMUIStyles();
     const dispatch = useDispatch();
 
-    const onClickDelete = () => {
+    const onClickDelete = async () => {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        fetch("http://localhost:5001/users/histories/delete", {
+        await fetch("http://localhost:5001/users/histories/delete", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 authorization: token,
             },
-            body: JSON.stringify({ historyNo: props.no }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.isSuccess) {
-                    dispatch(deleteHistory(data.historyNo));
-                }
-            });
+            body: JSON.stringify({ placeId: props.placeId }),
+        });
+        const response = await fetch("http://localhost:5001/users/histories", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: token,
+            },
+        });
+        const data = await response.json();
+        dispatch(setHistories(data));
     };
 
     return (
@@ -63,10 +66,8 @@ const HistoryItem = (props) => {
 };
 
 HistoryItem.propTypes = {
-    no: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     hashTags: PropTypes.arrayOf(PropTypes.string),
-    onClickDelete: PropTypes.func,
 };
 
 export default HistoryItem;

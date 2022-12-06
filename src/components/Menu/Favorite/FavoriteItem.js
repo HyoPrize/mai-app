@@ -2,7 +2,7 @@ import { Delete, NearMe } from "@mui/icons-material";
 import { ListItemAvatar, Avatar, ListItemText, ListItem, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { deleteFavorite, setFavorites } from "redux/actions/FavoriteAction";
+import { setFavorites } from "redux/actions/FavoriteAction";
 import useMUIStyles from "styles/MUIStyles";
 
 const FavoriteItem = (props) => {
@@ -40,7 +40,7 @@ const FavoriteItem = (props) => {
                     <IconButton edge="start" aria-label="delete" onClick={onClickDelete}>
                         <Delete />
                     </IconButton>
-                    <IconButton edge="end" aria-label="delete">
+                    <IconButton edge="end" aria-label="GoTo">
                         <NearMe />
                     </IconButton>
                 </Box>
@@ -70,7 +70,7 @@ const FavoriteItem = (props) => {
 };
 
 FavoriteItem.propTypes = {
-    no: PropTypes.number.isRequired,
+    placeId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     previewPath: PropTypes.string,
     address: PropTypes.string.isRequired,
