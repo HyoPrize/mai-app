@@ -1,5 +1,5 @@
 export const SET_USERPAGE = "SET_USERPAGE";
-export const CANCEL_USERPAGE = "CANCEL_USERPAGE";
+export const CLOSE_USERPAGE = "CLOSE_USERPAGE";
 
 export const setUserPage = (state) => {
     return {
@@ -8,8 +8,8 @@ export const setUserPage = (state) => {
     };
 };
 
-export const cancelUserPage = () => {
+export const closeUserPage = () => {
     return {
-        type: CANCEL_USERPAGE,
+        type: CLOSE_USERPAGE,
     };
 };

@@ -4,7 +4,7 @@ import { Icon } from "@blueprintjs/core";
 
 import { useSelector, useDispatch } from "react-redux";
 import { downMenuLevel, resetMenuLevel, upMenuLevel } from "redux/actions/MenuLevelAction";
-import { cancelUserPage } from "redux/actions/UserPageStateAction";
+import { closeUserPage } from "redux/actions/UserPageStateAction";
 
 const ButtonDiv = styled("div")`
     position: absolute;
@@ -60,7 +60,7 @@ function MenuToggleButton({ ...props }) {
             dispatch(downMenuLevel());
         } else if (menuLevel === 3) {
             dispatch(resetMenuLevel());
-            dispatch(cancelUserPage());
+            dispatch(closeUserPage());
         } else {
             console.log("MenuLevel Error");
         }
