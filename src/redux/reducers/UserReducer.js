@@ -1,6 +1,6 @@
 /*
 userInfo : {
-    userName : string,
+    userId : string,
     email : string,
 }
 */
@@ -16,7 +16,7 @@ export default function addUserReducer(state = initialState, action) {
             return {
                 ...state,
                 isLogin: true,
-                userInfo: action.payload.userInfo,
+                userInfo: action.payload,
             };
         }
         case "LOGOUT": {

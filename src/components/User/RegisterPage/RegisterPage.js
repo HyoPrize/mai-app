@@ -1,4 +1,4 @@
-import { HowToReg, SettingsOverscanOutlined } from "@mui/icons-material";
+import { HowToReg } from "@mui/icons-material";
 import { Avatar, TextField, Button, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,7 @@ async function RegisterUser(body) {
 const RegisterPage = () => {
     const classes = useMUIStyles();
     const [email, setEmail] = useState("");
-    const [userName, setUserName] = useState("");
+    const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -34,7 +34,7 @@ const RegisterPage = () => {
 
     useEffect(() => {
         setEmail("");
-        setUserName("");
+        setUserId("");
         setPassword("");
         setConfirmPassword("");
         setEmailValidMode(0);
@@ -47,11 +47,10 @@ const RegisterPage = () => {
 
         if (password === confirmPassword) {
             const RegisterData = await RegisterUser({
-                userId: userName,
+                userId: userId,
                 userEmail: email,
                 userPassword: password,
             });
-            console.log(RegisterData);
             if (RegisterData.isSuccess) {
                 swal("Success", RegisterData.message, "success", {
                     buttons: false,
@@ -119,8 +118,15 @@ const RegisterPage = () => {
                             value={email || ""}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <Button onClick={onClickSendCode} fullWidth variant="contained" disableElevation color="mai">
-                            <b>인증코드 발송</b>
+                        <Button
+                            sx={{ fontWeight: "700" }}
+                            onClick={onClickSendCode}
+                            fullWidth
+                            variant="contained"
+                            disableElevation
+                            color="mai"
+                        >
+                            인증코드 발송
                         </Button>
                     </>
                 );
@@ -154,24 +160,24 @@ const RegisterPage = () => {
                         />
                         <div style={{ display: "flex", width: "100%" }}>
                             <Button
-                                sx={{ boxSizing: "border-box", marginRight: "5px" }}
+                                sx={{ boxSizing: "border-box", marginRight: "5px", fontWeight: "700" }}
                                 fullWidth
                                 variant="contained"
                                 disableElevation
                                 color="mai"
                                 onClick={onClickValid}
                             >
-                                <b>인증코드 확인</b>
+                                인증코드 확인
                             </Button>
                             <Button
-                                sx={{ boxSizing: "border-box", marginLeft: "5px" }}
+                                sx={{ boxSizing: "border-box", marginLeft: "5px", fontWeight: "700" }}
                                 fullWidth
                                 variant="contained"
                                 disableElevation
                                 color="mai"
                                 onClick={onClickInit}
                             >
-                                <b>인증코드 재발송</b>
+                                인증코드 재발송
                             </Button>
                         </div>
                     </>
@@ -197,12 +203,12 @@ const RegisterPage = () => {
                             margin="normal"
                             required
                             fullWidth
-                            id="userName"
-                            name="사용자명"
-                            label="사용자명"
+                            id="userId"
+                            name="아이디"
+                            label="아이디"
                             color="mai"
-                            value={userName || ""}
-                            onChange={(e) => setUserName(e.target.value)}
+                            value={userId || ""}
+                            onChange={(e) => setUserId(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -232,8 +238,15 @@ const RegisterPage = () => {
                             value={confirmPassword || ""}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
-                        <Button type="submit" fullWidth variant="contained" disableElevation color="mai">
-                            <b>가입하기</b>
+                        <Button
+                            sx={{ fontWeight: "700" }}
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            disableElevation
+                            color="mai"
+                        >
+                            가입하기
                         </Button>
                     </form>
                 );

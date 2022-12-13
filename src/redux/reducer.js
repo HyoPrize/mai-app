@@ -14,6 +14,7 @@ import addCircleModeReducer from "./reducers/CircleModeReducer";
 import addCircleReducer from "./reducers/CircleReducer";
 import addMarkerReducer from "./reducers/MarkerReducer";
 import addColorReducer from "./reducers/ColorReducer";
+import addImageSrcReducer from "./reducers/ImageSrcReducer";
 
 const rootReducer = combineReducers({
     map: addMapReducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     circles: addCircleReducer,
     markers: addMarkerReducer,
     color: addColorReducer,
+    imageSrc: addImageSrcReducer,
 });
 
 export default rootReducer;

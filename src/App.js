@@ -51,8 +51,7 @@ function App() {
             .then((response) => response.json())
             .then((data) => {
                 if (data.isLogin) {
-                    const userInfo = data.userInfo;
-                    dispatch(login({ userId: userInfo.userId, userEmail: userInfo.userEmail }));
+                    dispatch(login({ userNo: data.userNo, userId: data.userId, userEmail: data.userEmail }));
                 } else {
                     dispatch(logout());
                     const oldToken = localStorage.getItem("token");

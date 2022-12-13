@@ -7,7 +7,7 @@ import { closeUserToggle } from "redux/actions/UserToggleAction";
 
 const UserMenuDiv = styled("div")`
     position: absolute;
-    top: 30px;
+    top: 35px;
     width: 50px;
     height: 50px;
     /* background-color: #fffded95; */
