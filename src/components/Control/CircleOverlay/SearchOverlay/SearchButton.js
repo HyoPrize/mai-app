@@ -53,7 +53,7 @@ const SearchButton = (props) => {
                         });
                         placeInfoList = placeInfoList.slice(0, 10);
 
-                        for await (let placeInfo of placeInfoList) {
+                        for await (const [idx, placeInfo] of placeInfoList.entries()) {
                             places.push({
                                 placeId: placeInfo.placeId,
                                 position: {
@@ -67,6 +67,7 @@ const SearchButton = (props) => {
                                 placeHashtags: placeInfo.placeHashtags,
                                 placeHashtagCounts: placeInfo.placeHashtagCounts,
                                 placeStar: placeInfo.placeStar,
+                                placeLank: idx,
                                 center: {
                                     lat: props.lat,
                                     lng: props.lon,
