@@ -2,7 +2,7 @@ import { Slider, Stack } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMainColor, setSubColor } from "redux/actions/ColorAction";
-import ControlDiv from "styles/ControlDiv";
+import ControlDiv from "components/Custom/ControlDiv";
 
 const TransparencyControl = () => {
     const dispatch = useDispatch();

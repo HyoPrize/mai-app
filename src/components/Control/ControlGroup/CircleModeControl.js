@@ -1,5 +1,5 @@
 import { Icon } from "@blueprintjs/core";
-import ControlDiv from "styles/ControlDiv";
+import ControlDiv from "components/Custom/ControlDiv";
 // import ControlButton from "styles/ControlButton";
 import { useState } from "react";
 
