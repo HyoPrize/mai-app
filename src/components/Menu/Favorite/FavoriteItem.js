@@ -1,13 +1,16 @@
 import { Delete, NearMe } from "@mui/icons-material";
 import { ListItemAvatar, Avatar, ListItemText, ListItem, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFavorites } from "redux/actions/FavoriteAction";
+import { selectMarker } from "redux/actions/MarkerAction";
 import useMUIStyles from "styles/MUIStyles";
 
 const FavoriteItem = (props) => {
     const classes = useMUIStyles();
     const dispatch = useDispatch();
+
+    const selectedMarker = useSelector((state) => state.markers.selectedMarker);
 
     const onClickDelete = async () => {
         const token = localStorage.getItem("token");
@@ -32,6 +35,12 @@ const FavoriteItem = (props) => {
         dispatch(setFavorites(data));
     };
 
+    const onClickSelect = () => {
+        if (!selectedMarker || selectedMarker.placeId !== props.placeId) {
+            dispatch(selectMarker(props.placeId));
+        }
+    };
+
     return (
         <ListItem
             alignItems="flex-start"
@@ -40,7 +49,7 @@ const FavoriteItem = (props) => {
                     <IconButton edge="start" aria-label="delete" onClick={onClickDelete}>
                         <Delete />
                     </IconButton>
-                    <IconButton edge="end" aria-label="GoTo">
+                    <IconButton edge="end" aria-label="select" onClick={onClickSelect}>
                         <NearMe />
                     </IconButton>
                 </Box>

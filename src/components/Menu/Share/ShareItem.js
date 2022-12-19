@@ -1,35 +1,29 @@
 import { NearMe } from "@mui/icons-material";
 import { ListItemAvatar, Avatar, ListItemText, ListItem, IconButton, Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useMUIStyles from "styles/MUIStyles";
 import { Favorite } from "@mui/icons-material";
+import { selectMarker } from "redux/actions/MarkerAction";
 
 const ShareItem = (props) => {
     const classes = useMUIStyles();
     const dispatch = useDispatch();
 
-    // const onClickDelete = async () => {
-    //     const token = localStorage.getItem("token");
-    //     if (!token) return;
+    const selectedMarker = useSelector((state) => state.markers.selectedMarker);
 
-    //     const response = await fetch("http://localhost:5001/shares", {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             authorization: token,
-    //         },
-    //     });
-    //     const data = await response.json();
-    //     dispatch(setShare(data));
-    // };
+    const onClickSelect = () => {
+        if (!selectedMarker || selectedMarker.placeId !== props.placeId) {
+            dispatch(selectMarker(props.placeId));
+        }
+    };
 
     return (
         <ListItem
             alignItems="flex-start"
             secondaryAction={
                 <Box sx={{ marginRight: 1 }}>
-                    <IconButton edge="end" aria-label="GoTo">
+                    <IconButton edge="end" aria-label="select" onClick={onClickSelect}>
                         <NearMe />
                     </IconButton>
                 </Box>

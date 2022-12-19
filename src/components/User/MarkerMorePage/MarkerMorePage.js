@@ -4,21 +4,21 @@ import { useSelector } from "react-redux";
 
 const MarkerMorePage = () => {
     const userPageState = useSelector((state) => state.userPageState.userPageState);
-    const selectedMarker = useSelector((state) => state.markers.markers.filter((marker) => marker.isFixed)[0]);
+    const fixedMarker = useSelector((state) => state.markers.markers.filter((marker) => marker.isFixed)[0]);
     let prevPlaceRef = useRef(null);
     const [place, setPlace] = useState(null);
 
     useEffect(() => {
-        if (selectedMarker && prevPlaceRef.current) {
-            if (selectedMarker && prevPlaceRef.current.placeId !== selectedMarker.place.placeId) {
-                setPlace(selectedMarker.place);
-                prevPlaceRef.current = selectedMarker.place;
+        if (fixedMarker && prevPlaceRef.current) {
+            if (fixedMarker && prevPlaceRef.current.placeId !== fixedMarker.place.placeId) {
+                setPlace(fixedMarker.place);
+                prevPlaceRef.current = fixedMarker.place;
             }
-        } else if (selectedMarker) {
-            setPlace(selectedMarker.place);
-            prevPlaceRef.current = selectedMarker.place;
+        } else if (fixedMarker) {
+            setPlace(fixedMarker.place);
+            prevPlaceRef.current = fixedMarker.place;
         }
-    }, [selectedMarker]);
+    }, [fixedMarker]);
 
     return (
         <>

@@ -1,7 +1,9 @@
-// marker : {id : string, placeId: number, isShow: boolean, isFixed: boolean}
+// marker : {id : string, place: {placeInfo}, isShow: boolean, isFixed: boolean}
+// selectedMarker : { placeId: number }
 
 const initialState = {
     markers: [],
+    selectedMarker: null,
 };
 
 export default function addMarkerReducer(state = initialState, action) {
@@ -38,7 +40,12 @@ export default function addMarkerReducer(state = initialState, action) {
                     ? { ...marker, isShow: true, isFixed: true }
                     : { ...marker, isShow: false, isFixed: false }
             );
-            return { ...state, markers: updatedMarkers };
+            return { ...state, markers: updatedMarkers, selectedMarker: null };
+        }
+        case "SELECT_MARKER": {
+            const placeId = action.payload;
+            const updatedMarkers = state.markers.map((marker) => ({ ...marker, isShow: false, isFixed: false }));
+            return { ...state, markers: updatedMarkers, selectedMarker: placeId > -1 ? { placeId: placeId } : null };
         }
         default:
             return state;

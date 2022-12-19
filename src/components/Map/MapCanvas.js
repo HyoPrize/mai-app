@@ -6,6 +6,7 @@ import CircleOverlay from "components/Control/CircleOverlay/CircleOverlay";
 import { useDispatch, useSelector } from "react-redux";
 import { setCircleMode } from "redux/actions/CircleModeAction";
 import { addCircle } from "redux/actions/CircleAction";
+import SelectedMarker from "components/Control/SelectedMarker/SelectedMarker";
 
 const MapDiv = styled("div")`
     position: relative;
@@ -152,6 +153,7 @@ function MapCanvas(props) {
                         </CustomOverlayMap>
                     </Fragment>
                 ))}
+                <SelectedMarker />
             </Map>
         </MapDiv>
     );
