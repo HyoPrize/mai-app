@@ -9,7 +9,7 @@ const UserIconAvatar = styled(Avatar)({
         width: "60px",
         top: "30px",
         height: "60px",
-        backgroundColor: (props) => props.backgroundColor,
+        backgroundColor: (props) => props.backgroundcolor,
         border: "none",
         borderRadius: "50%",
         cursor: "pointer",
@@ -49,15 +49,13 @@ const UserIcon = () => {
         }
     };
 
-    console.log(user);
-
     return (
         <div>
             <UserIconAvatar
                 onClick={onClickUserIcon}
                 style={{ right: getPixelFromMenuLevel() }}
                 src={user.isLogin ? userImageSrc : ""}
-                backgroundColor={user.isLogin ? "#FFFFFF" : "#FFB17A"}
+                backgroundcolor={user.isLogin ? "#FFFFFF" : "#FFB17A"}
             ></UserIconAvatar>
             {/* <UserIconBtn onClick={onClickUserIcon} style={{ right: getPixelFromMenuLevel() }} url={userImageSrc}>
             </UserIconBtn> */}
