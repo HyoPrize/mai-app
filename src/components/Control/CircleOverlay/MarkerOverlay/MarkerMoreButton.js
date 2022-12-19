@@ -14,17 +14,9 @@ const MarkerMoreButtonDiv = styled("div")`
     cursor: pointer;
 `;
 
-const MarkerMoreButton = (props) => {
+const MarkerMoreButton = () => {
     const dispatch = useDispatch();
     const [color, setColor] = useState("#808080");
-
-    const onMouseEnter = () => {
-        setColor("#FFB17A");
-    };
-
-    const onMouseLeave = () => {
-        setColor("#808080");
-    };
 
     const onClickButton = () => {
         dispatch(setMenuLevel(3));
@@ -32,7 +24,11 @@ const MarkerMoreButton = (props) => {
     };
 
     return (
-        <MarkerMoreButtonDiv onClick={onClickButton} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <MarkerMoreButtonDiv
+            onClick={onClickButton}
+            onMouseEnter={() => setColor("#FFB17A")}
+            onMouseLeave={() => setColor("#808080")}
+        >
             <div style={{ color: color }}>더보기</div>
             <ReadMore sx={{ color: color }}></ReadMore>
         </MarkerMoreButtonDiv>
