@@ -30,7 +30,7 @@ const History = () => {
     }, [isLogin]);
 
     return (
-        <Scrollbars style={{ position: "absolute", height: "auto", top: "130px", bottom: "0px" }}>
+        <Scrollbars style={{ position: "absolute", height: "auto", top: "150px", bottom: "0px" }}>
             <List>
                 {histories
                     ? histories

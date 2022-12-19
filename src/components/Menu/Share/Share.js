@@ -29,7 +29,7 @@ const Share = () => {
     }, [isLogin]);
 
     return (
-        <Scrollbars style={{ position: "absolute", height: "auto", top: "130px", bottom: "0px" }}>
+        <Scrollbars style={{ position: "absolute", height: "auto", top: "150px", bottom: "0px" }}>
             <List>
                 {shares
                     ? shares.map((share) => (
@@ -37,7 +37,7 @@ const Share = () => {
                               key={`share${share.placeId}`}
                               placeId={share.placeId}
                               name={share.placeName}
-                              previewPath={`http://localhost.com/places/image?no=${share.placeId}`}
+                              previewPath={`http://localhost:5001/places/image?placeId=${share.placeId}`}
                               address={share.placeAddress}
                               hashTags={share.placeHashtags.slice(0, 3)}
                               favoriteCount={share.placefavoriteCount}

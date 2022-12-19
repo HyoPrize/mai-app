@@ -14,7 +14,7 @@ const SearchBar = () => {
 
     return (
         <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <div style={{ margin: "20px 10px 0px 10px", flexGrow: "15" }}>
+            <div style={{ margin: "0px 10px 0px 10px", flexGrow: "15" }}>
                 <TextField
                     value={searchText}
                     onChange={onChangeSearchText}

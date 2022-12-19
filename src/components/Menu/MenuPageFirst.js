@@ -85,7 +85,13 @@ function MenuPageFirst(props) {
     return (
         <Box>
             <MenuPageFirstDiv style={{ left: getPixelFromMenuLevel(), backgroundColor: subColor }}>
-                MUI
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                        style={{ width: 50, margin: "10px 0px" }}
+                        alt="logo"
+                        src="http://localhost:5001/resources/mai_logo.png"
+                    />
+                </div>
                 {isLogin ? (
                     <>
                         <SearchBar></SearchBar>

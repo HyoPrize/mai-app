@@ -30,7 +30,7 @@ const Favorite = () => {
     }, [isLogin]);
 
     return (
-        <Scrollbars style={{ position: "absolute", height: "auto", top: "130px", bottom: "0px" }}>
+        <Scrollbars style={{ position: "absolute", height: "auto", top: "150px", bottom: "0px" }}>
             <List>
                 {favorites
                     ? favorites
@@ -40,7 +40,7 @@ const Favorite = () => {
                                   key={`favorite${favorite.placeId}`}
                                   placeId={favorite.placeId}
                                   name={favorite.placeName}
-                                  previewPath={`http://localhost.com/places/image?no=${favorite.placeId}`}
+                                  previewPath={`http://localhost:5001/places/image?placeId=${favorite.placeId}`}
                                   address={favorite.placeAddress}
                                   hashTags={favorite.placeHashtags.slice(0, 3)}
                               ></FavoriteItem>
