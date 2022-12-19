@@ -1,12 +1,13 @@
 import { HowToReg } from "@mui/icons-material";
-import { Avatar, Box, TextField, Tooltip, Typography } from "@mui/material";
+import { Avatar, Box, Tooltip, Typography } from "@mui/material";
 import { styled } from "@mui/styles";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserImageSrc } from "redux/actions/ImageSrcAction";
 import useMUIStyles from "styles/MUIStyles";
+import StyledTextField from "components/Custom/StyledTextField";
 
-const DarkerDisabledTextField = styled(TextField)({
+const DarkerDisabledTextField = styled(StyledTextField)({
     "& .Mui-disabled": {
         WebkitTextFillColor: "#FFB17A",
         "& input": {
@@ -109,24 +110,6 @@ const UserInfoPage = () => {
                         value={userInfo.userId}
                         // onChange={(e) => setUserId(e.target.value)}
                     />
-                    {/* <div style={{ display: "flex", alignItems: "flex-end" }}>
-                        <Button
-                            sx={{ boxSizing: "border-box", marginRight: "5px", fontWeight: "700" }}
-                            variant="contained"
-                            disableElevation
-                            color="mai"
-                        >
-                            아이디 변경
-                        </Button>
-                        <Button
-                            sx={{ boxSizing: "border-box", marginLeft: "5px", fontWeight: "700" }}
-                            variant="contained"
-                            disableElevation
-                            color="mai"
-                        >
-                            비밀번호 변경
-                        </Button>
-                    </div> */}
                 </div>
             ) : null}
         </div>

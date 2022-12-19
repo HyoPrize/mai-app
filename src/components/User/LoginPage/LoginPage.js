@@ -1,5 +1,5 @@
 import { LockOpen } from "@mui/icons-material";
-import { Avatar, TextField, Button, Typography, Box } from "@mui/material";
+import { Avatar, Button, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
@@ -8,6 +8,7 @@ import { resetMenuLevel } from "redux/actions/MenuLevelAction";
 import { closeUserToggle } from "redux/actions/UserToggleAction";
 import { login } from "redux/actions/UserAction";
 import { closeUserPage } from "redux/actions/UserPageStateAction";
+import StyledTextField from "components/Custom/StyledTextField";
 
 async function loginUser(body) {
     return fetch("http://localhost:5001/users/login", {
@@ -35,8 +36,6 @@ const LoginPage = (props) => {
     const userPageState = useSelector((state) => state.userPageState.userPageState);
 
     let isSubmit = false;
-
-    console.log(userPageState);
 
     useEffect(() => {
         setUserId("");
@@ -219,30 +218,17 @@ const LoginPage = (props) => {
                             로그인
                         </Typography>
                         <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
+                            <StyledTextField
                                 id="userId"
                                 name="아이디"
-                                label="아이디"
-                                color="mai"
-                                value={userId || ""}
+                                value={userId}
                                 onChange={(e) => setUserId(e.target.value)}
                             />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
+                            <StyledTextField
+                                type="password"
                                 id="password"
                                 name="비밀번호"
-                                label="비밀번호"
-                                type="password"
-                                color="mai"
-                                autoComplete="on"
-                                value={password || ""}
+                                value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <Button
@@ -283,16 +269,10 @@ const LoginPage = (props) => {
                         <Typography component="div" variant="h5">
                             아이디 찾기
                         </Typography>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
+                        <StyledTextField
                             id="email"
                             name="이메일"
-                            label="이메일"
-                            color="mai"
-                            value={email || ""}
+                            value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <Button
@@ -321,28 +301,16 @@ const LoginPage = (props) => {
                         </Typography>
                         {emailValidMode === 0 ? (
                             <>
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
+                                <StyledTextField
                                     id="email"
                                     name="이메일"
-                                    label="이메일"
-                                    color="mai"
-                                    value={email || ""}
+                                    value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
+                                <StyledTextField
                                     id="userId"
                                     name="아이디"
-                                    label="아이디"
-                                    color="mai"
-                                    value={userId || ""}
+                                    value={userId}
                                     onChange={(e) => setUserId(e.target.value)}
                                 />
                                 <Button
@@ -359,42 +327,24 @@ const LoginPage = (props) => {
                             </>
                         ) : emailValidMode === 1 ? (
                             <>
-                                <TextField
+                                <StyledTextField
                                     disabled
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
                                     id="email"
                                     name="이메일"
-                                    label="이메일"
-                                    color="mai"
-                                    value={email || ""}
+                                    value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <TextField
+                                <StyledTextField
                                     disabled
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
                                     id="userId"
                                     name="아이디"
-                                    label="아이디"
-                                    color="mai"
-                                    value={userId || ""}
+                                    value={userId}
                                     onChange={(e) => setUserId(e.target.value)}
                                 />
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
+                                <StyledTextField
                                     id="myCode"
                                     name="인증코드"
-                                    label="인증코드"
-                                    color="mai"
-                                    value={myCode || ""}
+                                    value={myCode}
                                     onChange={(e) => setMyCode(e.target.value)}
                                 />
                                 <div style={{ display: "flex", width: "100%" }}>
@@ -422,58 +372,32 @@ const LoginPage = (props) => {
                             </>
                         ) : (
                             <>
-                                <TextField
+                                <StyledTextField
                                     disabled
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
                                     id="email"
                                     name="이메일"
-                                    label="이메일"
-                                    color="mai"
-                                    value={email || ""}
+                                    value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <TextField
+                                <StyledTextField
                                     disabled
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
                                     id="userId"
                                     name="아이디"
-                                    label="아이디"
-                                    color="mai"
-                                    value={userId || ""}
+                                    value={userId}
                                     onChange={(e) => setUserId(e.target.value)}
                                 />
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
+                                <StyledTextField
+                                    type="password"
                                     id="firstPassword"
                                     name="재설정할 비밀번호"
-                                    label="재설정할 비밀번호"
-                                    type="password"
-                                    color="mai"
-                                    autoComplete="on"
-                                    value={password || ""}
+                                    value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
+                                <StyledTextField
+                                    type="password"
                                     id="confirmPassword"
                                     name="재설정할 비밀번호 확인"
-                                    label="재설정할 비밀번호 확인"
-                                    type="password"
-                                    color="mai"
-                                    autoComplete="on"
-                                    value={confirmPassword || ""}
+                                    value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                                 <Button
