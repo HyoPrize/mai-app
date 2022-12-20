@@ -22,12 +22,14 @@ const addFavoriteReducer = (state = initialState, action) => {
         }
         case "SET_FAVORITES": {
             let favorites = action.payload.favorites;
-            favorites = favorites.map((favorite) => {
-                return {
-                    ...favorite,
-                    placeString: favorite.placeName + favorite.placeHashtags.join("") + favorite.placeAddress,
-                };
-            });
+            favorites = favorites
+                .map((favorite) => {
+                    return {
+                        ...favorite,
+                        placeString: favorite.placeName + favorite.placeHashtags.join("") + favorite.placeAddress,
+                    };
+                })
+                .reverse();
             return {
                 ...state,
                 favorites: favorites,

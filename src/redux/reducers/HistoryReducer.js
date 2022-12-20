@@ -22,12 +22,14 @@ export default function addHistoryReducer(state = initialState, action) {
         case "SET_HISTORIES": {
             let histories = action.payload.histories;
 
-            histories = histories.map((history) => {
-                return {
-                    ...history,
-                    placeString: history.placeName + history.placeHashtags.join(""),
-                };
-            });
+            histories = histories
+                .map((history) => {
+                    return {
+                        ...history,
+                        placeString: history.placeName + history.placeHashtags.join(""),
+                    };
+                })
+                .reverse();
             return {
                 ...state,
                 histories: histories,
