@@ -1,4 +1,4 @@
-import { List, ListItem } from "@mui/material";
+import { List } from "@mui/material";
 import { useEffect } from "react";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,8 +38,9 @@ const History = () => {
                           .map((history) => (
                               <HistoryItem
                                   key={`history${history.placeId}`}
+                                  placeId={history.placeId}
                                   name={history.placeName}
-                                  hashTags={history.placeHashtags}
+                                  hashTags={history.placeHashtags.slice(0, 3)}
                               ></HistoryItem>
                           ))
                     : null}

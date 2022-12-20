@@ -11,6 +11,7 @@ import MarkerFavoriteButton from "./MarkerFavoriteButton";
 import { Box, List, ListItem, Tooltip } from "@mui/material";
 import CircularProgressWithLabelAndTooltip from "components/Custom/CircularProgressWithLabelAndTooltip";
 import { resetMenuLevel } from "redux/actions/MenuLevelAction";
+import { setHistories } from "redux/actions/HistoryAction";
 
 const MarkerOverlayDiv = styled("div")`
     /* background-color: #fffded95; */
@@ -86,15 +87,44 @@ const MarkerOverlay = (props) => {
     const subColor = useSelector((state) => state.color.subColor);
     const marker = useSelector((state) => state.markers.markers.filter((marker) => marker.id === props.id)[0]);
     const menuLevel = useSelector((state) => state.menuLevel.menuLevel);
+    const isLogin = useSelector((state) => state.user.isLogin);
 
     useEffect(() => {
         if (props.selected) {
             dispatch(setMapCenter(props.place.position, true));
+            onClickMarker();
         } else {
             dispatch(addMarker({ place: props.place, markerId: props.id }));
             return () => dispatch(deleteMarker(props.id));
         }
     }, []);
+
+    const onClickMarker = async () => {
+        if (isLogin) {
+            const token = localStorage.getItem("token");
+            if (!token) return;
+
+            await fetch("http://localhost:5001/users/histories/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: token,
+                },
+                body: JSON.stringify({ placeId: props.place.placeId }),
+            });
+
+            const response = await fetch("http://localhost:5001/users/histories", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: token,
+                },
+            });
+
+            const data = await response.json();
+            dispatch(setHistories(data));
+        }
+    };
 
     const renderOverlay = () => {
         if (props.selected) {
@@ -178,6 +208,7 @@ const MarkerOverlay = (props) => {
                             onClick={() => {
                                 dispatch(fixMarker(marker.id));
                                 dispatch(setMapCenter(props.place.position, true));
+                                onClickMarker();
                             }}
                         >
                             <MarkerImg
