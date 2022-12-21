@@ -1,6 +1,5 @@
 const { kakao } = window;
 const geocoder = new kakao.maps.services.Geocoder();
-const ps = new kakao.maps.services.Places();
 
 export const coord2Str = (val) => {
     if (val === null || typeof val === "undefined" || val === "") {
@@ -33,87 +32,6 @@ const coord2AddrPromise = (lat, lon) => {
 export const coord2Addr = async (lat, lon) => {
     const coord = new kakao.maps.LatLng(lat, lon);
     return await coord2AddrPromise(coord.getLat(), coord.getLng());
-};
-
-export const placeSearchPromise = (keyword, searchOption) => {
-    return new Promise((resolve, reject) => {
-        const placeIdList = [];
-        ps.keywordSearch(
-            keyword,
-            (data, status, pagination) => {
-                if (pagination && pagination.totalCount > 0 && pagination.current < pagination.last) {
-                    searchOption["page"] = pagination.current + 1;
-                    ps.keywordSearch(
-                        keyword,
-                        (data, status, pagination) => {
-                            if (pagination && pagination.totalCount > 0 && pagination.current < pagination.last) {
-                                searchOption["page"] = pagination.current + 1;
-                                ps.keywordSearch(
-                                    keyword,
-                                    (data, status, pagination) => {
-                                        if (
-                                            pagination &&
-                                            pagination.totalCount > 0 &&
-                                            pagination.current < pagination.last
-                                        ) {
-                                            searchOption["page"] = pagination.current + 1;
-                                            ps.keywordSearch(
-                                                keyword,
-                                                (data, status, pagination) => {
-                                                    if (status === kakao.maps.services.Status.OK) {
-                                                        for (var i = 0; i < data.length; i++) {
-                                                            placeIdList.push(data[i].id);
-                                                        }
-                                                    } else {
-                                                        resolve(placeIdList);
-                                                    }
-                                                },
-                                                searchOption
-                                            );
-                                        } else {
-                                            resolve(placeIdList);
-                                        }
-                                        if (status === kakao.maps.services.Status.OK) {
-                                            for (var i = 0; i < data.length; i++) {
-                                                placeIdList.push(data[i].id);
-                                            }
-                                        }
-                                    },
-                                    searchOption
-                                );
-                            } else {
-                                resolve(placeIdList);
-                            }
-                            if (status === kakao.maps.services.Status.OK) {
-                                for (var i = 0; i < data.length; i++) {
-                                    placeIdList.push(data[i].id);
-                                }
-                            }
-                        },
-                        searchOption
-                    );
-                } else {
-                    resolve(placeIdList);
-                }
-                if (status === kakao.maps.services.Status.OK) {
-                    for (var i = 0; i < data.length; i++) {
-                        placeIdList.push(data[i].id);
-                    }
-                }
-            },
-            searchOption
-        );
-    });
-};
-
-export const placeSearch = async (keyword, lat, lon, distance) => {
-    const searchOption = {
-        location: new kakao.maps.LatLng(lat, lon),
-        radius: distance,
-        sort: kakao.maps.services.SortBy.DISANCE,
-        page: 1,
-    };
-    return await placeSearchPromise(keyword, searchOption);
 };
 
 export const placeSearchInRadius = async (keyword, lat, lon, distance) => {

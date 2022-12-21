@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Icon } from "@blueprintjs/core";
 import { useState } from "react";
 import { getSearchableKeywordLabel } from "utils/publicData";
-import { placeSearch, placeSearchInRadius } from "utils/kakaoUtil";
+import { placeSearchInRadius } from "utils/kakaoUtil";
 import swal from "sweetalert";
 import { predictStar } from "utils/UniverseModel";
 
