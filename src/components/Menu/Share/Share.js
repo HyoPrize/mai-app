@@ -34,8 +34,9 @@ const Share = () => {
                 {shares
                     ? shares.map((share) => (
                           <ShareItem
-                              key={`share${share.placeId}`}
+                              key={`share${share.placeId}${share.placeKeyword}`}
                               placeId={share.placeId}
+                              placeKeyword={share.placeKeyword}
                               name={share.placeName}
                               previewPath={`http://localhost:5001/places/image?placeId=${share.placeId}`}
                               address={share.placeAddress}

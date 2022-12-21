@@ -21,7 +21,10 @@ const SelectedMarker = () => {
                             "Content-Type": "application/json",
                             authorization: token,
                         },
-                        body: JSON.stringify({ placeIdList: [selectedMarker.placeId] }),
+                        body: JSON.stringify({
+                            placeIdList: [selectedMarker.placeId],
+                            placeKeyword: selectedMarker.placeKeyword,
+                        }),
                     });
                     const data = await response.json();
                     if (data.isFound) {

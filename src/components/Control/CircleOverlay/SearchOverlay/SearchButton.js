@@ -39,7 +39,7 @@ const SearchButton = (props) => {
                             "Content-Type": "application/json",
                             authorization: token,
                         },
-                        body: JSON.stringify({ placeIdList: placeIdList }),
+                        body: JSON.stringify({ placeIdList: placeIdList, placeKeyword: keyword }),
                     });
                     const data = await response.json();
                     if (data.isFound) {

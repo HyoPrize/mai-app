@@ -17,7 +17,11 @@ const MarkerFavoriteButton = (props) => {
     const dispatch = useDispatch();
     const [color, setColor] = useState("#808080");
     const favorite = useSelector(
-        (state) => state.favorite.favorites.filter((favorite) => favorite.placeId === props.placeId)[0]
+        (state) =>
+            state.favorite.favorites.filter(
+                (favorite) =>
+                    favorite.placeId === props.place.placeId && favorite.placeKeyword === props.place.placeKeyword
+            )[0]
     );
     const isLogin = useSelector((state) => state.user.isLogin);
 
@@ -40,7 +44,7 @@ const MarkerFavoriteButton = (props) => {
                         "Content-Type": "application/json",
                         authorization: token,
                     },
-                    body: JSON.stringify({ placeId: props.placeId }),
+                    body: JSON.stringify({ placeId: props.place.placeId, placeKeyword: props.place.placeKeyword }),
                 });
             } else {
                 await fetch("http://localhost:5001/users/favorites/add", {
@@ -49,7 +53,7 @@ const MarkerFavoriteButton = (props) => {
                         "Content-Type": "application/json",
                         authorization: token,
                     },
-                    body: JSON.stringify({ placeId: props.placeId }),
+                    body: JSON.stringify({ placeId: props.place.placeId, placeKeyword: props.place.placeKeyword }),
                 });
             }
             const response = await fetch("http://localhost:5001/users/favorites", {

@@ -110,7 +110,7 @@ const MarkerOverlay = (props) => {
                     "Content-Type": "application/json",
                     authorization: token,
                 },
-                body: JSON.stringify({ placeId: props.place.placeId }),
+                body: JSON.stringify({ placeId: props.place.placeId, placeKeyword: props.place.placeKeyword }),
             });
 
             const response = await fetch("http://localhost:5001/users/histories", {
@@ -185,7 +185,7 @@ const MarkerOverlay = (props) => {
                                     <span key={index}>#{hashTag} </span>
                                 ))}
                             </MarkerHashtag>
-                            <MarkerFavoriteButton placeId={props.place.placeId}></MarkerFavoriteButton>
+                            <MarkerFavoriteButton place={props.place}></MarkerFavoriteButton>
                         </MarkerOverlayDiv>
                     </CustomOverlayMap>
                 </>
@@ -274,7 +274,7 @@ const MarkerOverlay = (props) => {
                                     ))}
                                 </MarkerHashtag>
                                 <MarkerMoreButton></MarkerMoreButton>
-                                <MarkerFavoriteButton placeId={props.place.placeId}></MarkerFavoriteButton>
+                                <MarkerFavoriteButton place={props.place}></MarkerFavoriteButton>
                             </MarkerOverlayDiv>
                         </CustomOverlayMap>
                     ) : null}

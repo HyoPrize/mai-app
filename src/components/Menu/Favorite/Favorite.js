@@ -37,8 +37,9 @@ const Favorite = () => {
                           .filter((favorite) => favorite.placeString.includes(searchText))
                           .map((favorite) => (
                               <FavoriteItem
-                                  key={`favorite${favorite.placeId}`}
+                                  key={`favorite${favorite.placeId}${favorite.placeKeyword}`}
                                   placeId={favorite.placeId}
+                                  placeKeyword={favorite.placeKeyword}
                                   name={favorite.placeName}
                                   previewPath={`http://localhost:5001/places/image?placeId=${favorite.placeId}`}
                                   address={favorite.placeAddress}

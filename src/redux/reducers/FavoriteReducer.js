@@ -1,6 +1,7 @@
 /*
 favorite : {
     placeId: number,
+    placeKeyword: string,
     placeName: string,
     placeAddress: string,
     placeHashtags: array<string>,

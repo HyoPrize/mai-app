@@ -20,7 +20,7 @@ const HistoryItem = (props) => {
                 "Content-Type": "application/json",
                 authorization: token,
             },
-            body: JSON.stringify({ placeId: props.placeId }),
+            body: JSON.stringify({ placeId: props.placeId, placeKeyword: props.placeKeyword }),
         });
         const response = await fetch("http://localhost:5001/users/histories", {
             method: "GET",
@@ -66,6 +66,8 @@ const HistoryItem = (props) => {
 };
 
 HistoryItem.propTypes = {
+    placeId: PropTypes.number.isRequired,
+    placeKeyword: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     hashTags: PropTypes.arrayOf(PropTypes.string),
 };

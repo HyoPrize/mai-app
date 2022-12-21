@@ -40,9 +40,9 @@ export const fixMarker = (id) => {
     };
 };
 
-export const selectMarker = (placeId) => {
+export const selectMarker = (placeId, placeKeyword) => {
     return {
         type: SELECT_MARKER,
-        payload: placeId,
+        payload: { placeId: placeId, placeKeyword: placeKeyword },
     };
 };

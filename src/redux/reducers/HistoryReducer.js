@@ -1,6 +1,7 @@
 /*
 history : {
     placeId: number,
+    placeKeyword: number,
     placeName: string,
     placeHashtags: array<string>,
     placeString: string

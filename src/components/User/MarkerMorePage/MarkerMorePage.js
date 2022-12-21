@@ -10,7 +10,11 @@ const MarkerMorePage = () => {
 
     useEffect(() => {
         if (fixedMarker && prevPlaceRef.current) {
-            if (fixedMarker && prevPlaceRef.current.placeId !== fixedMarker.place.placeId) {
+            if (
+                fixedMarker &&
+                (prevPlaceRef.current.placeId !== fixedMarker.place.placeId ||
+                    prevPlaceRef.current.placeKeyword !== fixedMarker.place.placeKeyword)
+            ) {
                 setPlace(fixedMarker.place);
                 prevPlaceRef.current = fixedMarker.place;
             }
@@ -48,7 +52,7 @@ const MarkerMorePage = () => {
                                     },
                                     title: {
                                         display: true,
-                                        text: "타이틀",
+                                        text: "가장 많이 나온 단어",
                                         color: "#000000",
                                         font: {
                                             family: "Roboto",

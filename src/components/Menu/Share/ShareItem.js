@@ -13,8 +13,12 @@ const ShareItem = (props) => {
     const selectedMarker = useSelector((state) => state.markers.selectedMarker);
 
     const onClickSelect = () => {
-        if (!selectedMarker || selectedMarker.placeId !== props.placeId) {
-            dispatch(selectMarker(props.placeId));
+        if (
+            !selectedMarker ||
+            selectedMarker.placeId !== props.placeId ||
+            selectedMarker.placeKeyword !== props.placeKeyword
+        ) {
+            dispatch(selectMarker(props.placeId, props.placeKeyword));
         }
     };
 
@@ -57,6 +61,7 @@ const ShareItem = (props) => {
 
 ShareItem.propTypes = {
     placeId: PropTypes.number.isRequired,
+    placeKeyword: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     previewPath: PropTypes.string,
     address: PropTypes.string.isRequired,

@@ -37,8 +37,9 @@ const History = () => {
                           .filter((history) => history.placeString.includes(searchText))
                           .map((history) => (
                               <HistoryItem
-                                  key={`history${history.placeId}`}
+                                  key={`history${history.placeId}${history.placeKeyword}`}
                                   placeId={history.placeId}
+                                  placeKeyword={history.placeKeyword}
                                   name={history.placeName}
                                   hashTags={history.placeHashtags.slice(0, 3)}
                               ></HistoryItem>
